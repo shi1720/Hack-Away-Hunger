@@ -83,6 +83,7 @@ def test_online_backup_includes_live_wal_and_restores_a_working_application(tmp_
             assert not conn.execute("PRAGMA foreign_key_check").fetchall()
 
 
+@pytest.mark.sqlite_only
 def test_backup_refuses_overwrite_and_removes_failed_output(real_operator, app, tmp_path):
     destination = tmp_path / "existing.sqlite3"
     destination.write_bytes(b"preserve this prior backup")

@@ -1,0 +1,34 @@
+# Pantry Relay: three-minute demonstration
+
+Project lead: Shivam Gupta. Target: approximately 3 minutes at a conversational 145 to 150 words per minute. The spoken text is final for synthetic narration. Use the narration column verbatim. Segment times are editing targets; set the final cuts from the generated audio duration.
+
+**Disclosure:** Use a licensed, natural synthetic voice. Do not imitate Shivam or imply he recorded the audio. Display “Fictional demo records. Synthetic narration.” at the beginning and include the disclosure in the video description. Keep the application's demo indicator visible.
+
+**Recording setup:** Use a fresh sample workspace and a 120-pound produce proposal. Record at 1920 by 1080 or 1440 by 900 with notifications hidden. The final video can cut out typing and loading pauses. Preserve real status changes. If the running interface shows different quantities, correct the narration and captions to match it.
+
+| Segment | Approximate time | Verbatim narration | Onscreen scene |
+| --- | --- | --- | --- |
+| 01 | 0:00 to 0:20 | Picture a food pantry opening tomorrow. There is rice on the shelf, but hardly any produce. A nearby pantry has produce it could share. Someone still has to connect those two facts, arrange the handoff, and find out what actually arrived. | Landing page, then overview. Title: “Pantry Relay”. Small disclosure: “Fictional demo records. Synthetic narration.”. Avoid stock footage implying these are actual partner sites. |
+| 02 | 0:20 to 0:37 | This is Pantry Relay, created by Shivam Gupta with AI assistance. It helps an approved pantry network fill upcoming food gaps with what its neighbors can spare. These are fictional pantries, and every number in this demonstration is sample data. | Overview with demo badge. Briefly highlight the schematic map and next-service need. Credit: “Project lead: Shivam Gupta”. |
+| 03 | 0:37 to 0:56 | Cedar Grove has produce above the stock it needs for its own visitors. Eastside needs produce for its next service. In the relay planner, I can see a proposed transfer of one hundred and twenty pounds, with an explanation of why it fits. | Open “Relay planner”, click “Find matches”, show the 120-pound produce card. Highlight source, destination and explanation without obscuring the reserve. |
+| 04 | 0:56 to 1:16 | The planner checks reserves, restrictions, storage, receiving space, use-by cutoffs and vehicle capacity. Distances are straight-line estimates, so a person still confirms the actual trip. When I reserve the transfer, that stock is committed. Another coordinator cannot promise those same pounds again. | Show constraints and exclusion explanation briefly. Click “Reserve this relay”. Open Deliveries and show Reserved status. |
+| 05 | 1:16 to 1:34 | Next comes the receiving pantry's acceptance, pickup and arrival. The app records the handoffs and requires temperature checks when the food needs them. A driver has a simpler delivery view; coordinators handle acceptance and the final receiving record. | Accept at destination with “Jordan, demo receiver”. Record pickup with the applicable simulated checks, then mark arrived. Use cuts between completed steps. Optional two-second driver view inset. |
+| 06 | 1:34 to 1:56 | Here is the part that matters. We sent one hundred and twenty pounds, but eight pounds arrived damaged. I enter one hundred and twelve pounds accepted and explain the difference. The report counts one hundred and twelve. The missing eight remain visible against the upcoming need. | Receipt form: 112 pounds, required temperature if shown, exception “8 lb damaged in transit, sample scenario.” Confirm. Cut to Impact & reports, then the remaining need. |
+| 07 | 1:56 to 2:15 | The receiving pantry's food is protected from being offered straight back out. A failed delivery counts as no food received. A receipt confirmed after the service deadline gets no credit for that missed service. The records follow what happened, including the inconvenient parts. | Show received inventory reserve and receipt/export. Brief text overlay, grounded in implemented behavior: “Protected receipt. Recorded exceptions. Service deadline respected.” Avoid attempting extra full workflows here. |
+| 08 | 2:15 to 2:33 | This is a working application with accounts, separate networks, permissions and persistent records. We test stock protection, permissions and the complete handoff in automated backend and browser checks. It runs without paid AI or mapping APIs. The next question is whether it makes a coordinator's day easier. | Show login or empty-network screenshot, then a short engineering card: “Stock protection. Permissions. Complete handoff.” Caption: “Automated backend and browser checks”. |
+| 09 | 2:33 to 2:51 | Our proposed price is one hundred and forty-nine dollars per network per month for up to ten sites. That price is a hypothesis. We want to test it with one coordinator and three pantries, measuring food gaps, staff time, transport effort and accepted pounds. | Pilot/business slide. Show “Proposed: $149 / network / month”, “Up to 10 sites”, “Next: supervised 3-pantry pilot”. Do not imply paid customers. |
+| 10 | 2:51 to 3:03 | Pantry Relay makes food already in the community easier to share, with a record of what reached the next pantry. Our goal is a useful service that operators choose to keep. | Closing screen: product name, “Make the food already here go further.”, verified live URL and repository. Hold two seconds after the last word. |
+
+## Production notes
+
+- Use actual screen recordings of the implemented application. Label static screenshots or walkthroughs if they replace a live action.
+- Generate each numbered narration segment separately. Retain short natural pauses; avoid a rushed promotional delivery.
+- Captions must match the generated audio. Write “120 lb”, “112 lb” and “8 lb” in captions where helpful, while the voice reads complete words.
+- Keep the figures visible long enough to compare. The partial-receipt sequence is the demonstration's center, not a passing feature slide.
+- Avoid background music that competes with the voice. No music is preferable to a distracting track.
+- Use current hosted verification only after it passes. Keep any numerical test-count overlays aligned with the final verification record.
+- Confirm the actual Devpost video-duration and visibility requirements before publishing. Three minutes is our production target, not a claimed rule.
+
+## Alternative opening for Shivam's own recording
+
+If Shivam records the narration personally, replace segment 02 with: “I'm Shivam Gupta, and this is Pantry Relay. It helps an approved pantry network fill upcoming food gaps with what its neighbors can spare. I built it with AI assistance. These are fictional pantries, and every number in this demonstration is sample data.” Remove the synthetic-voice disclosure only if no synthetic narration remains.

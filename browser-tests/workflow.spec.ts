@@ -1,24 +1,7 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import fs from "node:fs/promises";
-async function demo(page: any) {
-  await page.goto("/");
-  await page.getByRole("button", { name: "Explore the live demo" }).click();
-  await expect(
-    page.getByRole("heading", { name: "Every connection counts." }),
-  ).toBeVisible();
-}
-async function nav(page: any, name: string) {
-  if (
-    await page
-      .getByRole("button", { name: "Open navigation", exact: true })
-      .isVisible()
-  )
-    await page
-      .getByRole("button", { name: "Open navigation", exact: true })
-      .click();
-  await page.getByRole("button", { name, exact: true }).click();
-}
+import { createOperationalFixture, demo, nav, workspace } from "./helpers";
 test("complete actual receipt workflow and reload persistence", async ({
   page,
 }) => {
@@ -30,17 +13,12 @@ test("complete actual receipt workflow and reload persistence", async ({
   await expect(
     page.getByRole("button", { name: "Reserve this relay" }).first(),
   ).toBeVisible();
-  await fs.mkdir("../artifacts/screenshots", { recursive: true });
-  await page.screenshot({
-    path: "../artifacts/screenshots/planner.png",
-    fullPage: false,
-  });
   const proposal = page
     .locator(".proposal-card")
     .filter({ hasText: "120" })
     .first();
-  console.log("proposal count", await page.locator(".proposal-card").count());
   await proposal.getByRole("button", { name: "Reserve this relay" }).click();
+  await expect(page.getByRole("status")).toContainText("120 lb reserved");
   await nav(page, "Deliveries");
   const card = page.locator(".delivery-card").first();
   await card.getByRole("button", { name: "Accept at destination" }).click();
@@ -77,13 +55,14 @@ test("complete actual receipt workflow and reload persistence", async ({
   await nav(page, "Impact & reports");
   await expect(page.locator(".impact-hero")).toContainText("112");
   await expect(page.locator("tbody")).toContainText("8 lb");
-  await page.screenshot({
-    path: "../artifacts/screenshots/impact.png",
-    fullPage: false,
-  });
   const download = page.waitForEvent("download");
   await page.getByRole("button", { name: "Export receipts" }).click();
-  expect((await download).suggestedFilename()).toContain("receipts");
+  const receiptDownload = await download;
+  expect(receiptDownload.suggestedFilename()).toContain("receipts");
+  const exported = await fs.readFile((await receiptDownload.path())!, "utf8");
+  expect(exported).toContain("dispatched_lb,received_lb,rejected_lb");
+  expect(exported).toContain("120.0,112.0,8.0");
+  expect(exported).toContain("8 lb damaged in transit (sample scenario).");
   await page.reload();
   await expect(page.locator(".impact-hero")).toContainText("112");
   await nav(page, "Pantries & needs");
@@ -152,7 +131,10 @@ test("real account onboarding, stock, need, and closing mistaken request", async
     .getByRole("dialog")
     .locator("textarea")
     .fill("Service entered in error");
-  await page.getByRole("dialog").getByRole("button", { name: "Close service need", exact: true }).click();
+  await page
+    .getByRole("dialog")
+    .getByRole("button", { name: "Close service need", exact: true })
+    .click();
   await expect(page.locator(".service-table")).toContainText("Closed");
   await page.getByRole("button", { name: "Sign out", exact: true }).click();
   await page.getByRole("button", { name: "Sign in", exact: true }).click();
@@ -169,10 +151,6 @@ test("real account onboarding, stock, need, and closing mistaken request", async
 test("mobile layout and keyboard-accessible dialog", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await demo(page);
-  await page.screenshot({
-    path: "../artifacts/screenshots/mobile.png",
-    fullPage: true,
-  });
   expect(
     await page.evaluate(
       () => document.documentElement.scrollWidth <= window.innerWidth,
@@ -187,12 +165,21 @@ test("mobile layout and keyboard-accessible dialog", async ({ page }) => {
   await page.keyboard.press("Escape");
   await expect(page.getByRole("dialog")).not.toBeVisible();
 });
-test("landing, overview and planner meet automated WCAG A/AA checks", async ({
+test("landing and all workspace screens meet automated WCAG A/AA checks", async ({
   page,
-}) => {
+}, testInfo) => {
   await page.goto("/");
   await page.getByRole("button", { name: "Explore the live demo" }).waitFor();
-  for (const view of ["landing", "overview", "planner"]) {
+  for (const view of [
+    "landing",
+    "overview",
+    "planner",
+    "Inventory",
+    "Pantries & needs",
+    "Deliveries",
+    "Impact & reports",
+    "Your team",
+  ]) {
     if (view === "overview") {
       await page.getByRole("button", { name: "Explore the live demo" }).click();
       await page
@@ -209,13 +196,28 @@ test("landing, overview and planner meet automated WCAG A/AA checks", async ({
         .first()
         .waitFor();
     }
+    if (
+      [
+        "Inventory",
+        "Pantries & needs",
+        "Deliveries",
+        "Impact & reports",
+        "Your team",
+      ].includes(view)
+    ) {
+      await nav(page, view);
+      if (view === "Your team")
+        await expect(page.locator(".team-member").first()).toBeVisible();
+    }
     const results = await new AxeBuilder({ page })
       .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
       .analyze();
-    await fs.mkdir("../artifacts/verification", { recursive: true });
-    await fs.writeFile(
-      `../artifacts/verification/axe-${view}.json`,
-      JSON.stringify(results.violations, null, 2),
+    await testInfo.attach(
+      `axe-${view.toLowerCase().replace(/[^a-z]+/g, "-")}`,
+      {
+        body: JSON.stringify(results.violations, null, 2),
+        contentType: "application/json",
+      },
     );
     expect(results.violations, view).toEqual([]);
   }
@@ -251,6 +253,7 @@ test("invited driver joins with separate credentials and sees transport actions 
     .getByRole("button", { name: "Create invitation", exact: true })
     .click();
   const invite = await page.getByLabel("Private invitation link").inputValue();
+  const transfer = await createOperationalFixture(page);
   const context = await browser.newContext();
   const driver = await context.newPage();
   await driver.goto(invite);
@@ -271,6 +274,33 @@ test("invited driver joins with separate credentials and sees transport actions 
   await expect(
     driver.getByRole("button", { name: "Your team", exact: true }),
   ).toHaveCount(0);
+  await expect(
+    driver.getByRole("button", { name: "Accept at destination", exact: true }),
+  ).toHaveCount(0);
+  await driver
+    .getByRole("button", { name: "Record pickup", exact: true })
+    .click();
+  await driver.getByRole("checkbox", { name: /Condition checked/ }).check();
+  await driver
+    .getByRole("button", { name: "Confirm pickup", exact: true })
+    .click();
+  await driver
+    .getByRole("button", { name: "Mark arrived", exact: true })
+    .click();
+  await driver
+    .getByRole("dialog")
+    .getByRole("button", { name: "Mark arrived", exact: true })
+    .click();
+  await expect(driver.getByRole("dialog")).toBeHidden();
+  await expect(
+    driver.getByRole("button", { name: "Confirm receipt", exact: true }),
+  ).toHaveCount(0);
+  await expect(driver.locator(".delivery-card")).toContainText(
+    "Awaiting coordinator receipt",
+  );
+  expect(
+    (await workspace(page)).transfers.find((t) => t.id === transfer.id)?.status,
+  ).toBe("arrived");
   await context.close();
 });
 test("expired authenticated session returns to sign-in instead of trapping workspace", async ({

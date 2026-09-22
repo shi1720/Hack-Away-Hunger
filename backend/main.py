@@ -13,6 +13,7 @@ from datetime import timedelta
 from pathlib import Path
 from urllib.parse import urlparse
 
+import psycopg
 from fastapi import Depends, FastAPI, HTTPException, Request, Response
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import FileResponse, JSONResponse
@@ -100,11 +101,24 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         if request.method not in {"GET", "HEAD", "OPTIONS"}:
             origin = request.headers.get("origin")
             if origin:
-                parsed = urlparse(origin)
-                if parsed.netloc != request.headers.get("host") or parsed.scheme not in {
-                    "http",
-                    "https",
-                }:
+                try:
+                    parsed = urlparse(origin)
+                    exact_origin = origin in settings.trusted_origins
+                    same_host = parsed.netloc == request.headers.get("host")
+                    valid_scheme = parsed.scheme == (
+                        "https" if settings.cookie_secure else request.url.scheme
+                    )
+                    allowed = exact_origin or (
+                        same_host
+                        and valid_scheme
+                        and not parsed.path
+                        and not parsed.query
+                        and not parsed.fragment
+                        and not parsed.username
+                    )
+                except ValueError:
+                    allowed = False
+                if not allowed:
                     return JSONResponse(
                         {"detail": "Cross-origin writes are not allowed"}, status_code=403
                     )
@@ -139,6 +153,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             errors.append(f"{field}: {error['msg']}" if field else error["msg"])
         return JSONResponse({"detail": "; ".join(errors)}, status_code=422)
 
+    @application.exception_handler(psycopg.Error)
     @application.exception_handler(sqlite3.OperationalError)
     async def database_busy(_request, _exc):
         # Do not disclose SQL or filesystem paths. The journal preserves atomicity.

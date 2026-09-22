@@ -10,7 +10,7 @@ from fastapi import HTTPException, Request, Response
 
 from backend.db import transaction
 
-COOKIE = "pantry_session"
+COOKIE = "__session"  # Firebase Hosting forwards only this cookie to Cloud Run.
 
 
 def now() -> datetime:
@@ -100,7 +100,7 @@ def authenticated(request: Request) -> dict:
         raise HTTPException(401, "Your session has expired. Sign in again")
     if request.method not in {"GET", "HEAD", "OPTIONS"}:
         csrf = request.headers.get("X-CSRF-Token", "")
-        if not hmac.compare_digest(csrf, row["csrf_token"]):
+        if not hmac.compare_digest(csrf.encode("utf-8"), row["csrf_token"].encode("utf-8")):
             raise HTTPException(403, "CSRF validation failed. Refresh the page and try again")
     return dict(row)
 

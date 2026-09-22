@@ -6,7 +6,7 @@ Run `./scripts/start.sh`, then open http://localhost:8010. Dependencies require 
 
 `docker compose up --build -d` provides the same local app with a named persistent volume. The supplied Compose file binds only to localhost and intentionally uses development cookie settings. Do not expose that configuration directly to the internet.
 
-## Durable pilot deployment
+## Durable SQLite deployment on an existing server
 
 Run one Docker container behind an HTTPS reverse proxy on an existing server or a host offering persistent disks. Set:
 
@@ -22,6 +22,16 @@ Mount a durable volume at `/app/data`, writable by UID 10001. Proxy to port 8000
 
 Before putting real operational data into the deployment, run a fresh account through the complete transfer, role invitation, CSV export and backup/restore flow. Disable demo creation. Ensure the public hostname and secure cookies work. Assign responsibility for updates, backups and account recovery.
 
+## Firebase Hosting with durable PostgreSQL
+
+The hosted path uses Firebase Hosting for the static application and a same-origin `/api/**` rewrite to Cloud Run. Cloud Run connects to a dedicated Cloud SQL PostgreSQL database. Cloud Run's local filesystem is not used for persistent records.
+
+`scripts/deploy_firebase.sh` deploys the dedicated Pantry Relay service and Hosting site. It reads the database connection URL from Secret Manager, uses a dedicated service account, restricts allowed hosts and browser origins, and caps concurrency and instance count. Existing Cloud SQL, registry, service-account permissions and secrets must be provisioned first. The script does not create or modify other applications' databases.
+
+This deployment supports real account registration and isolated demonstration networks together. PostgreSQL plus the explicit `PANTRY_ALLOW_PUBLIC_DEMO=true` setting are required for this production combination. Real networks are not affected by demo cleanup. Members can be invited only into real networks.
+
+See [PostgreSQL deployment and recovery](POSTGRESQL.md) for the exact configuration, transaction behavior, Cloud SQL backup and logical restore procedures, operator account recovery, and dual-database test instructions. Use the actual deployment check results to establish hosted readiness; these instructions alone are not proof of a successful deployment.
+
 ## Disposable public showcase
 
 For a separate free demonstration service, use the same production security settings with `PANTRY_DEMO_ONLY=true` and `PANTRY_DEMO_ENABLED=true`. This mode disables real account creation and invitations, creates isolated sample workspaces, and labels the app as disposable. Set the allowed host to the actual public service hostname. All state can disappear when an ephemeral host restarts. Do not put real records into this mode.
@@ -30,11 +40,11 @@ For a separate free demonstration service, use the same production security sett
 
 Render's free web service filesystem is ephemeral and its free Postgres expires after 30 days. A free web service with SQLite is therefore only a disposable demo, not durable storage. Official docs checked September 22, 2026: https://render.com/docs/free and https://render.com/docs/disks.
 
-This repository does not silently deploy into a paid plan or promise a permanent free production service. Hosting cost is a hypothesis in the business model. A durable hosted pilot requires an existing server or an explicitly chosen paid persistent-storage plan. No cloud account is required to evaluate the complete local app.
+The selected Firebase and Cloud SQL deployment is a metered cloud service. Cloud SQL has ongoing instance and storage charges even when Cloud Run scales to zero. Set a budget alert, verify the instance size and region, and assign responsibility for the bill. It is not a permanent free production offer. No cloud account is required to evaluate the complete local SQLite application.
 
-## Backup and restore
+## SQLite backup and restore
 
-Use the SQLite online backup API while the application is running:
+For PostgreSQL, follow [the PostgreSQL backup and restore procedure](POSTGRESQL.md#backups-and-restore). For SQLite, use the online backup API while the application is running:
 
 ```sh
 uv run python scripts/backup.py data/pantry-relay.sqlite3 backups/pantry-2026-09-22.sqlite3

@@ -3,6 +3,7 @@ import io
 import secrets
 from datetime import timedelta
 
+import pytest
 from conftest import action, create_need, dispatch, register, reserve
 from fastapi.testclient import TestClient
 
@@ -161,6 +162,7 @@ def test_close_need_is_tenant_scoped_and_requires_reason(demo, app):
         )
 
 
+@pytest.mark.sqlite_only
 def test_schema_v1_to_v3_migration_preserves_existing_data(demo, app):
     before = demo.get("/api/workspace").json()
     # The prior application version had no closed column. Build that exact schema shape.
@@ -239,6 +241,7 @@ def test_delivery_failure_requires_dispatch_and_reason_and_is_allowed_after_arri
     assert failed["failed_lb"] == 120
 
 
+@pytest.mark.sqlite_only
 def test_transfer_schema_v2_to_v3_migration_preserves_reservations_and_indexes(demo, app):
     transfer = reserve(demo)
     before = demo.get("/api/workspace").json()

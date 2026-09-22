@@ -3,7 +3,11 @@ name = "pantry-relay"
 version = "1.0.0"
 description = "Accountable surplus rebalancing for pantry networks"
 requires-python = ">=3.11"
-dependencies = ["fastapi>=0.115,<1", "uvicorn[standard]>=0.30,<1"]
+dependencies = [
+    "fastapi>=0.115,<1",
+    "psycopg[binary]>=3.2,<4",
+    "uvicorn[standard]>=0.30,<1",
+]
 
 [project.optional-dependencies]
 dev = ["pytest>=8,<10", "httpx>=0.27,<1", "ruff>=0.9,<1"]
@@ -12,6 +16,7 @@ dev = ["pytest>=8,<10", "httpx>=0.27,<1", "ruff>=0.9,<1"]
 testpaths = ["tests"]
 pythonpath = ["."]
 addopts = "-q"
+markers = ["sqlite_only: SQLite-specific backup and schema migration tests"]
 
 [tool.ruff]
 line-length = 100

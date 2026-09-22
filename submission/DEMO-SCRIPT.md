@@ -1,5 +1,7 @@
 # Pantry Relay: recording script
 
+For the current synthetic-narration video, use `VIDEO-NARRATION.md`. This file is the alternative script for Shivam to speak personally, including the shorter live-presentation fallback. Do not use its first-person introduction with synthetic audio or imply the synthetic voice is Shivam's.
+
 Presenter: **Shivam Gupta**. Target: approximately **3 minutes** at a calm 140-150 words per minute. This is a rehearsal target, not a verified event video requirement. Confirm the Devpost form's actual limit.
 
 The scenario and names are fictional. Keep the demo label visible. Record a fresh demo workspace. Use the first produce proposal; confirm its actual quantity before recording. The canonical illustrative narration below uses 120 lb dispatched and 112 lb received. If the interface shows different quantities, use its actual values rather than reading a conflicting number.

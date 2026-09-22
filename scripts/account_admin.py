@@ -3,12 +3,13 @@
 
 import argparse
 import getpass
+import os
 import sys
 from pathlib import Path
 
 # Allow direct invocation from any directory without installing the application package.
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from backend.db import transaction  # noqa: E402
+from backend.db import is_postgres, transaction  # noqa: E402
 from backend.domain import audit  # noqa: E402
 from backend.security import password_hash  # noqa: E402
 
@@ -16,11 +17,19 @@ from backend.security import password_hash  # noqa: E402
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("action", choices=["reset-password", "revoke-sessions"])
-    parser.add_argument("--database", required=True)
+    parser.add_argument(
+        "--database",
+        default=os.getenv("PANTRY_DATABASE"),
+        help="Database path or PostgreSQL URL; defaults to PANTRY_DATABASE",
+    )
     parser.add_argument("--email", required=True)
     args = parser.parse_args(argv)
-    database = str(Path(args.database).expanduser())
-    if not Path(database).is_file():
+    if not args.database:
+        parser.error("Set PANTRY_DATABASE or pass --database")
+    database = (
+        args.database if is_postgres(args.database) else str(Path(args.database).expanduser())
+    )
+    if not is_postgres(database) and not Path(database).is_file():
         parser.error("Database does not exist")
     new_hash = None
     if args.action == "reset-password":
@@ -31,7 +40,7 @@ def main(argv: list[str] | None = None) -> int:
         new_hash = password_hash(password)
     with transaction(database, write=True) as conn:
         row = conn.execute(
-            "SELECT * FROM users WHERE email=? COLLATE NOCASE", (args.email.strip(),)
+            "SELECT * FROM users WHERE lower(email)=lower(?)", (args.email.strip(),)
         ).fetchone()
         if not row:
             parser.error("No such account")

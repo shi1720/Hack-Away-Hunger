@@ -1,7 +1,8 @@
-"""SQLite transactions serialize allocation and inventory transitions.
+"""Transactional PostgreSQL persistence and SQLite for persistent local deployments.
 
 Weight is stored as integer hundredths of a pound to avoid floating-point drift.
-The supported deployment is one application instance on a persistent local disk.
+PostgreSQL writes serialize through a transaction advisory lock. SQLite uses
+BEGIN IMMEDIATE. Both retain the same inventory and reservation invariants.
 """
 
 import sqlite3
@@ -80,7 +81,15 @@ CREATE INDEX IF NOT EXISTS idx_events_network ON events(network_id, created_at);
 """
 
 
-def connect(database: str) -> sqlite3.Connection:
+def is_postgres(database: str) -> bool:
+    return database.startswith(("postgresql://", "postgres://"))
+
+
+def connect(database: str):
+    if is_postgres(database):
+        from backend.postgres import Connection
+
+        return Connection(database)
     conn = sqlite3.connect(database, timeout=15, isolation_level=None)
     conn.row_factory = sqlite3.Row
     conn.execute("PRAGMA foreign_keys=ON")
@@ -89,6 +98,11 @@ def connect(database: str) -> sqlite3.Connection:
 
 
 def initialize(database: str) -> None:
+    if is_postgres(database):
+        from backend.postgres import initialize as initialize_postgres
+
+        initialize_postgres(database, SCHEMA)
+        return
     if database != ":memory:":
         Path(database).expanduser().resolve().parent.mkdir(parents=True, exist_ok=True)
     conn = connect(database)
@@ -142,7 +156,14 @@ def initialize(database: str) -> None:
 def transaction(database: str, write: bool = False):
     conn = connect(database)
     try:
-        conn.execute("BEGIN IMMEDIATE" if write else "BEGIN")
+        if is_postgres(database):
+            from backend.postgres import WRITE_LOCK
+
+            conn.execute("BEGIN" if write else "BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY")
+            if write:
+                conn.execute("SELECT pg_advisory_xact_lock(?)", (WRITE_LOCK,))
+        else:
+            conn.execute("BEGIN IMMEDIATE" if write else "BEGIN")
         yield conn
         conn.commit()
     except BaseException:

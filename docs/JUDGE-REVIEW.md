@@ -1,4 +1,4 @@
-# Pantry Relay — independent provisional review
+# Pantry Relay : independent provisional review
 
 Review date: September 22, 2026. This is an internal, AI-assisted evaluation against the published hackathon rubric, not a score from the event's judges or a prediction of winning. Reviewed the actual backend, frontend source, tests, research, business/pilot plans, Devpost copy, demo script and five rendered desktop/mobile screenshots. The coordinating reviewer also supplied results from the actual browser workflow. The final presentation recording and live pantry use remain untested.
 
@@ -14,19 +14,21 @@ The principal remaining uncertainty is whether enough real, permitted pantry-to-
 | --- | ---: | ---: | --- |
 | Community impact | 30 | 22 | Direct link between declared need and recorded food receipt; sensible measurement plan and no household data. No field baseline, participating pantry or observed impact yet. |
 | Innovation | 20 | 14 | Source reserve protection, service-specific demand and accountable receipt form a distinctive focus. Existing rescue platforms already have matching and dispatch, so this is a focused workflow improvement rather than a wholly new category. |
-| Technical execution | 20 | 18 | Real persistence, role and tenant controls, exact quantity accounting, transactional reservations, state transitions, audit/export and meaningful regression tests. The independent review found important accounting edge cases; verified fixes and an independently checked failure closeout materially strengthen this score. Final frontend verification remains to check. |
+| Technical execution | 20 | 18 | Real persistence, role and tenant controls, exact quantity accounting, transactional reservations, state transitions, audit/export and meaningful regression tests. Verified accounting repairs and an independently checked failure closeout strengthen this score. The implementer reports 56 passing backend tests; supplied browser evidence covers persistence, partial receipt and export. |
 | Feasibility and sustainability | 15 | 11 | One network buyer, low infrastructure dependency, honest price/cost assumptions, free self-hosting and a practical pilot. Entry burden, transfer economics, integration needs and willingness to pay are still unvalidated. |
-| User experience and design | 10 | 8 | Cohesive, polished visual system and a clear partial-receipt workflow; supplied mobile screenshots stack cleanly, and the coordinating reviewer reported no 390px overflow plus successful Escape handling. The reviewed operational UI repairs are integrated. Real volunteer usability and the final contrast scan remain distinct checks. |
+| User experience and design | 10 | 8 | Cohesive, polished visual system and a clear partial-receipt workflow; supplied mobile screenshots stack cleanly, with reported no 390px overflow and successful Escape handling. Final automated axe results show zero WCAG 2.1 A/AA violations across 24 views/states. Operational recovery and field labels are repaired. Actual volunteer usability, assistive-technology use and full keyboard navigation still need observation. |
 | Presentation | 5 | 4 | Strong single-story script, candid competitor positioning, usable judge answers and a concrete pilot ask. Final recording, deck rendering and in-person eligibility are not established by this review. |
 | **Total** | **100** | **77** | **Provisional internal assessment, not an event result.** |
 
-The engineering score can improve with verified final behavior. The largest potential improvement in the overall submission comes from credible operator evidence and a smooth presentation, not inflated claims or more screens.
+The accessibility repairs remove the known contrast and field-label defects. The UX score remains 8 because automated checks and polished screenshots do not establish ease of use for real pantry staff. The largest potential improvement in the overall submission comes from credible operator evidence and a smooth presentation, not inflated claims or more screens.
 
 ## Review method and independent checks
 
-Used temporary SQLite databases under a disposable test directory. No real workspace data was changed. The existing backend test suite was read rather than redundantly executed in full; the backend implementer owns the suite run and its results. This reviewer ran narrow API reproductions for identified issues and independent access-control probes. The backend implementer subsequently reported 51 passing tests and clean Ruff checks; that is a reported suite result, not an independent rerun by this reviewer.
+Used temporary SQLite databases under a disposable test directory. No real workspace data was changed. The existing backend test suite was read rather than redundantly executed in full; the backend implementer owns the suite run and its results. This reviewer ran narrow API reproductions for identified issues and independent access-control probes. The backend implementer subsequently reported 56 passing tests and clean Ruff checks; that is a reported suite result, not an independent rerun by this reviewer.
 
 An attempted direct browser review could not start: the in-app browser was unavailable and Chrome session setup failed on runtime authentication. No browser interactions or operational records were changed by this reviewer. Instead, the reviewer visually inspected `artifacts/screenshots/landing.png`, `overview.png`, `planner.png`, `impact.png` and `mobile.png`. The coordinating reviewer reported successful actual-browser partial receipt, CSV download, reload persistence, reopened 8-pound need, 390px mobile overflow check and Escape dismissal. This is supplied execution evidence, not a claim that this reviewer personally ran those browser actions.
+
+The reviewer also read `artifacts/verification/frontend-accessibility.json`: all 24 named views/states have empty violation arrays. The frontend's final rendered audit used WCAG 2.1 A/AA rules and includes forms, failed-delivery recovery, receipt states and the mobile overview. This is supplied automated execution evidence; it does not certify accessibility or cover every possible interaction.
 
 Observed access results:
 
@@ -42,33 +44,33 @@ Read regression coverage includes concurrent duplicate reservation, source reser
 
 Line references identify the reviewed source snapshot; function names remain the stable reference if formatting changes.
 
-### R1 — Late receipt incorrectly fulfilled a missed service — repaired and independently rechecked
+### R1 : Late receipt incorrectly fulfilled a missed service : repaired and independently rechecked
 
 Initial location: `backend/main.py`, `receive`, originally lines 418–444. A transfer was picked up while its service was upcoming; its need was then advanced past deadline in the isolated test database. Receiving 112 pounds returned 200 and increased that already-missed service's `fulfilled_lb` by 112.
 
 Repaired behavior in `receive` (formatted source: `backend/main.py:866`, credited quantity at line 920): late confirmation still records physical accepted stock, but credits **zero** toward the missed service. The response and report distinguish `on_time`, `late` and `need_credited_lb`. Independent recheck returned `fulfilled_lb=0`, `late=true`, `need_credited_lb=0`, with 112 pounds actually received preserved.
 
-The timestamp measures receipt confirmation, not guaranteed physical arrival. User-facing language and the audit must say “receipt confirmed after the service deadline.” This distinction matters if someone records a timely physical delivery late.
+The timestamp measures receipt confirmation, not guaranteed physical arrival. Current user-facing language and the audit say receipt was confirmed after the service deadline. This distinction matters if someone records a timely physical delivery late.
 
-### R2 — Received stock could immediately be sent away again — repaired and independently rechecked
+### R2 : Received stock could immediately be sent away again : repaired and independently rechecked
 
 Initial location: `backend/main.py`, `receive`, originally line 440. The destination lot was created with no protected reserve. A second need made the planner offer all 112 just-received pounds to a third pantry while the first pantry's service remained credited as fulfilled.
 
 Repaired behavior in `backend/main.py:866`, `receive`, creates the received lot with **reserve equal to accepted quantity**. Independent recheck showed quantity 112, reserve 112, available 0, and no downstream proposal from that lot. A coordinator can intentionally release reserve through an audited stock adjustment. Regression coverage exercises both protection and deliberate release.
 
-### R3 — Restricted stock was labeled shareable — repaired and independently rechecked
+### R3 : Restricted stock was labeled shareable : repaired and independently rechecked
 
 Initial locations: `backend/domain.py`, `available_units`, and `frontend/src/views.tsx`, `Inventory`. A restricted 30-pound lot returned `available_lb=30`; the inventory row labeled that quantity shareable even though matching and the global total excluded it.
 
 `available_units` (`backend/domain.py:78`) now returns zero for restricted or expired lots. Independent recheck returned **0** for the restricted lot. The underlying quantity is retained so the physical inventory is still accurate.
 
-### R4 — Real invitees could join a disposable demo network — repaired and independently rechecked
+### R4 : Real invitees could join a disposable demo network : repaired and independently rechecked
 
 Initial locations: `backend/main.py`, `invite` and `join`, originally lines 203–230. A sample-workspace administrator could generate an invitation, and an ordinary email/password user could join. Demo cleanup would later delete that supposedly normal account and its work.
 
-Both endpoints (`backend/main.py:263` and `backend/main.py:292`) now reject demo-network membership, including previously generated demo invites. Independent invite recheck returned **403**. The frontend should also hide the invitation action in a demo and explain that real team onboarding starts with an empty registered network.
+Both endpoints (`backend/main.py:263` and `backend/main.py:292`) now reject demo-network membership, including previously generated demo invites. Independent invite recheck returned **403**. The final frontend hides the invitation action in a demo and explains that real team onboarding starts with an empty registered network.
 
-### R5 — A mistaken or canceled need had no recovery action — backend repair independently rechecked; UI source checked
+### R5 : A mistaken or canceled need had no recovery action : backend repair independently rechecked; UI source checked
 
 Initial locations: `backend/main.py`, `create_need`, and `frontend/src/views.tsx`, `Sites`. A mistaken quantity or canceled service remained eligible for planning until its time passed.
 
@@ -76,7 +78,7 @@ The new `POST /api/needs/{id}/close` endpoint (`backend/main.py:667`) preserves 
 
 ## UI findings and source recheck
 
-These were sent to the frontend implementer. The final source was reread after the changes; all five repairs below are present. A final browser exercise remains the stronger verification for the interaction paths.
+These were sent to the frontend implementer. The final source was reread after the changes; all five repairs below are present. The supplied browser workflow and accessibility evidence provide additional verification; see the final project verification record for the complete end-to-end scenario results.
 
 | Initial priority | Final reviewed location | Finding and repair |
 | --- | --- | --- |
@@ -86,7 +88,7 @@ These were sent to the frontend implementer. The final source was reread after t
 | P2 | `frontend/src/views.tsx:1154` and `:1488` | Late receipts originally had no visible distinction. Delivery cards now say receipt was confirmed after the service, and impact rows show the service-credited quantity separately. |
 | P3 | `frontend/src/App.tsx:374` and `frontend/src/Forms.tsx:374` | Times originally lacked a visible zone. The footer and service-time input now name the browser's timezone. |
 
-Static CSS review also identified **P2 contrast/readability issues** in the initial styles: hero description `#7f8777` on `#f8f9f2` was 3.52:1; helper text `#7d8976` on `#f7f8f2` was 3.44:1; field hints `#83907d` on `#fffef9` were 3.33:1; small labels `#929a8b` on `#fffef9` were 2.88:1. These are below 4.5:1 for normal text. Several mobile rules reduced operational metadata to 7–9 px. The final stylesheet darkens informational text and enlarges critical metadata; the coordinating reviewer is rerunning axe against the rendered release. These initial calculations are source-based checks, not a complete accessibility certification.
+Static CSS review also identified **P2 contrast/readability issues** in the initial styles: hero description `#7f8777` on `#f8f9f2` was 3.52:1; helper text `#7d8976` on `#f7f8f2` was 3.44:1; field hints `#83907d` on `#fffef9` were 3.33:1; small labels `#929a8b` on `#fffef9` were 2.88:1. These are below 4.5:1 for normal text. Several mobile rules reduced operational metadata to 7–9 px. The final stylesheet darkens informational text and enlarges critical metadata. Field labels and their hints now have explicit associations. The final rendered axe audit reports zero violations in 24 views/states. Neither the initial source calculations nor the final automated scan is a complete accessibility certification.
 
 ### Visual critique
 
@@ -96,9 +98,11 @@ The first screenshot set exposed overly faint small metadata, which the subseque
 
 ## Additional operational repair
 
-**R6 — A transfer lost before arrival lacked a truthful terminal incident action — repaired and independently rechecked.** In the initial implementation, `arrive` accepted only `in_transit`, `receive` accepted only `arrived`, and `cancel` accepted only pre-pickup states. A never-arrived shipment could retain demand/capacity commitments indefinitely or require an untrue arrival record before full rejection.
+**R6 : A transfer lost before arrival lacked a truthful terminal incident action : repaired and independently rechecked.** In the initial implementation, `arrive` accepted only `in_transit`, `receive` accepted only `arrived`, and `cancel` accepted only pre-pickup states. A never-arrived shipment could retain demand/capacity commitments indefinitely or require an untrue arrival record before full rejection.
 
 `backend/main.py:962`, `fail_transfer`, now lets a coordinator record a reason and close an in-transit or arrived delivery as `failed`. Independent API reproduction returned 200 for a 120-pound transit failure: source stock remained 180 with its 180-pound reserve, the original need reopened to 120, its committed quantity became zero, received total remained zero, and the destination gained no lot. Repeating failure or attempting a later positive receipt returned 409. The API exposes `failed_lb`, writes a failure audit event and excludes the loss from received totals. Schema version 3 migration and failure regressions were added by the implementer. The final frontend source includes a coordinator action and reason form, while excluding failed transfers from active lists and capacity calculations.
+
+Account recovery is also supplied as an operator task: `scripts/account_admin.py` can reset a password interactively or revoke an account's sessions against the configured database. It records a local-operator audit event and revokes existing sessions on a password reset. This is deliberately not self-service email recovery; a deployed network still needs an authorized operator and a documented identity-verification process.
 
 ## Business and story review
 

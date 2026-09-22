@@ -354,6 +354,7 @@ export function Planner({ w, refresh, notify, open }: ViewProps) {
   async function reserve(p: Proposal) {
     setReserving(p.lot_id + p.need_id);
     setError("");
+    let saved = false;
     try {
       await api("/transfers", {
         lot_id: p.lot_id,
@@ -361,13 +362,19 @@ export function Planner({ w, refresh, notify, open }: ViewProps) {
         quantity_lb: p.quantity_lb,
         ...constraints,
       });
-      await refresh();
-      setPlan(await api("/planner", constraints));
+      saved = true;
+      setPlan(null);
       notify(
         `${qty(p.quantity_lb)} lb reserved. Ask the receiving pantry to accept the relay.`,
       );
+      await refresh();
+      setPlan(await api("/planner", constraints));
     } catch (e) {
-      setError((e as Error).message);
+      setError(
+        saved
+          ? "Your relay was reserved, but the latest matches could not load. Refresh the workspace to see the saved delivery before planning more."
+          : (e as Error).message,
+      );
     } finally {
       setReserving("");
     }
@@ -848,7 +855,7 @@ export function Sites({ w, open }: ViewProps) {
       <SectionTitle
         eyebrow="ONE NETWORK. MANY NEIGHBORS."
         title="Know your pantries."
-        description="Locations, storage and upcoming services — the context behind every connection."
+        description="Locations, storage and upcoming services: the context behind every connection."
         actions={
           <>
             <Button
@@ -1304,7 +1311,7 @@ export function Deliveries({ w, open, notify }: ViewProps) {
       </InfoNote>
       {print && (
         <div className="print-manifest">
-          <h1>Pantry Relay — delivery manifest</h1>
+          <h1>Pantry Relay: delivery manifest</h1>
           <p>Relay ID: {print.id}</p>
           <h2>
             {print.food_name} · {qty(print.quantity_lb)} lb
@@ -1313,6 +1320,21 @@ export function Deliveries({ w, open, notify }: ViewProps) {
             Category: {pretty(print.category)} · Storage:{" "}
             {pretty(print.storage)}
           </p>
+          <p>
+            Times shown in {Intl.DateTimeFormat().resolvedOptions().timeZone}.
+          </p>
+          {print.service_at && (
+            <p>Receiving service: {date(print.service_at, true)}</p>
+          )}
+          {w.lots.find((l) => l.id === print.lot_id)?.expires_at && (
+            <p>
+              Operational use-by cutoff:{" "}
+              {date(
+                w.lots.find((l) => l.id === print.lot_id)!.expires_at,
+                true,
+              )}
+            </p>
+          )}
           <h3>Pickup</h3>
           <p>
             {siteName(w, print.source_id)}
@@ -1344,7 +1366,7 @@ export function Deliveries({ w, open, notify }: ViewProps) {
             This manifest is a working aid and does not certify food safety.
           </p>
           {w.network.is_demo && (
-            <p>DEMO — Fictitious organizations and sample data.</p>
+            <p>DEMO: Fictitious organizations and sample data.</p>
           )}
         </div>
       )}

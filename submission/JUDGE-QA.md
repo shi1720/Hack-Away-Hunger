@@ -1,4 +1,4 @@
-# Pantry Relay — judge questions and demonstration notes
+# Pantry Relay : judge questions and demonstration notes
 
 Prepared for Shivam Gupta. Use these answers as a guide, not as a claim that a pilot has taken place. All demo organizations, needs and weights are fictional. Release status: supervised-pilot release. Reconcile any implementation or test claim with the final build and verification record before presenting.
 
@@ -10,10 +10,10 @@ Prepared for Shivam Gupta. Use these answers as a guide, not as a claim that a p
 
 | Criterion | Weight | What to demonstrate | Evidence and honest boundary |
 | --- | ---: | --- | --- |
-| Community impact | 30% | A next-service produce need becomes an accepted receipt; a partial receipt leaves the remaining need open. | Received weight is directly recorded. Household outcomes, avoided waste and statewide impact are not established. Pilot measures are defined in `docs/PILOT-PLAN.md`. |
+| Community impact | 30% | A next-service produce need becomes an accepted receipt; a partial receipt leaves the remaining need open. | Received weight is operator-recorded. Household outcomes, avoided waste and statewide impact are not established. Pilot measures are defined in `docs/PILOT-PLAN.md`. |
 | Innovation | 20% | Source reserve protection, a specific service-category gap, explained constraints and actual receipt in one workflow. | Existing platforms already match donations. Our claim is a focused pantry-to-pantry operating workflow, not invention of food rescue technology. |
 | Technical execution | 20% | Reserve stock, accept, pick up, arrive and receive; refresh to show persistence; show an excluded lot and an invalid action being prevented. | Server-side permissions, network isolation, transactions, stock version checks and explicit states matter more than animation. Present the final executed checks accurately. |
-| Feasibility and sustainability | 15% | Show a normal empty network, simple lot/need entry and exportable records. Explain one buyer and the $149 hypothesis. | No required paid AI/map dependency. Single-instance deployment and ongoing support costs remain explicit. No paying customer or letter of intent is claimed. |
+| Feasibility and sustainability | 15% | Show a normal empty network, simple lot/need entry and exportable records. Explain one buyer and the $149 hypothesis. | No required paid AI/map dependency. SQLite self-hosting and PostgreSQL cloud operation have different hosting costs; ongoing support remains necessary. No paying customer or letter of intent is claimed. |
 | User experience and design | 10% | Complete the flow on a narrow viewport; point out units, timestamps, labels and partial-receipt feedback. | Usability must still be observed with pantry operators. Do not call a visual review a field usability study. |
 | Presentation | 5% | Follow one fictional transfer from shortage to receipt, then make one specific pilot ask. | Keep live demo claims narrower than the proposed roadmap. Credit Shivam and AI assistance accurately. |
 
@@ -62,9 +62,17 @@ Demonstrate a stock reservation affecting subsequent availability. If presenting
 
 ### What happens if the driver brings less than expected?
 
-“Pickup records the dispatched stock leaving the source. On receipt, the coordinator records what was accepted. If 112 of 120 pounds are accepted, the destination gains 112, the impact total gains 112, and 8 pounds remain unfilled against the need. The exception requires a reason. We do not silently turn a partial delivery into a success at the promised weight.”
+“Pickup records the dispatched stock leaving the source. On a receipt confirmed before the service deadline, if 112 of 120 pounds are accepted, the destination gains 112, the impact total gains 112, and 8 pounds remain unfilled against the need. The exception requires a reason. We do not silently turn a partial delivery into a success at the promised weight.”
 
-Pre-pickup cancellation releases the reservation. After pickup, a real incident needs operator handling; the app must not pretend the stock teleported back to its source.
+Accepted stock enters the destination with its full quantity protected as local reserve, so the planner cannot immediately offer that same food elsewhere. A coordinator can deliberately release reserve through an audited adjustment.
+
+Pre-pickup cancellation releases the reservation. After pickup, a coordinator can report a failed delivery from the in-transit or arrived state. That closes the transfer, records the reason and releases need/capacity commitments. The food stays deducted from the source and contributes nothing to received totals.
+
+### What if the receipt is confirmed after the service deadline?
+
+“We still record the accepted physical stock, but give it zero credit toward that missed service. The transfer and report distinguish actual received pounds from service-credited pounds. The timestamp tells us when receipt was confirmed; it cannot prove the time food physically arrived if someone entered the record late.”
+
+This conservative distinction prevents a late record from silently making a missed service appear fulfilled. A canceled or mistaken need can be closed with a reason once it has no active transfer commitments.
 
 ### Are you actually preventing waste?
 
@@ -100,7 +108,7 @@ Free MIT-licensed self-hosting remains available. Hosted service, backups and su
 
 ### Does the business work at that price?
 
-“Our illustrative model allocates $15 for infrastructure and backups and one hour of support at $30. That leaves $104 per network per month before development, sales, tax and overhead. These assumptions have to be tested; support could be higher, and the shipped deployment is a single instance.”
+“Our illustrative model allocates $15 for infrastructure and backups and one hour of support at $30. That leaves $104 per network per month before development, sales, tax and overhead. These are assumptions, not measured unit costs. The managed PostgreSQL cloud deployment has its own actual hosting bill; credits are not permanent cost savings. Support may also be higher.”
 
 Ten such networks would produce $1,490 monthly revenue, which is not a mature business. The purpose of the first paid pilot is to find a repeatable useful service, not inflate a market-size slide. Expand only when the operating results justify it.
 
@@ -112,11 +120,17 @@ If a current platform solves this well for a network, adopting that platform can
 
 ### What is ready now, and what still needs work?
 
-“The release provides accounts and roles, network-scoped pantry records, lots and reserves, category needs, explained proposals, persisted transfer states, partial receipts, audit history and CSV reports. The operating flow runs without external API keys.”
+“The release provides accounts and roles, network-scoped pantry records, lots and reserves, category needs, explained proposals, persisted transfer states, partial and late receipts, failed-delivery recovery, need closure, audit history and CSV reports. The operating flow runs without external API keys.”
 
-“It is a supervised-pilot release, not a certified production service. Before real use, the operator needs approved transfer procedures, account recovery ownership, suitable transport and incident handling. The deployment needs HTTPS, persistent storage, a successful restore test and public demo access disabled.”
+“It is a supervised-pilot release, not a certified production service. Before real use, the operator needs approved transfer procedures, account recovery ownership, suitable transport and incident handling. The deployment needs HTTPS, persistent storage and a successful restore test. Public sample demos are an explicit operator choice, stay isolated from registered networks and can be disabled.”
 
-Known product limits include no offline synchronization, road routing, automated email recovery or existing inventory-system integration. Physical pickup/receiving windows must be confirmed outside the planner. Do not claim an SLA, security audit, accessibility certification or validated field usability.
+An included operator command supports interactive password resets and session revocation with an audit record. Self-service email recovery is not implemented. Other product limits include no offline synchronization, road routing or existing inventory-system integration. Physical pickup/receiving windows must be confirmed outside the planner. Do not claim an SLA, security audit, accessibility certification or validated field usability.
+
+### How was it tested?
+
+“The backend implementer reports 115 passing tests across SQLite and PostgreSQL, with five storage-specific skips. They cover stock and capacity accounting, state transitions, partial and rejected receipts, concurrent reservations, network isolation and permissions. An independent review reproduced and rechecked accounting edge cases with isolated databases. The reviewed local axe scan reports zero automatically detectable WCAG 2.1 A/AA violations across 24 views and states, and the 390-pixel mobile layout was checked for horizontal overflow.”
+
+“Browser checks also exercised a partial receipt, CSV download and persistence after reload. These are engineering checks, not a security audit, accessibility certification or a field usability study.” Use the final verification document for the complete, current scenario results.
 
 ### What did you build, and how did AI contribute?
 

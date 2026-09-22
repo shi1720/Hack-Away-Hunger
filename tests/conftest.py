@@ -1,18 +1,42 @@
+import os
 from datetime import timedelta
+from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
+from uuid import uuid4
 
+import psycopg
 import pytest
 from fastapi.testclient import TestClient
+from psycopg import sql
 
 from backend.config import Settings
 from backend.main import create_app
 from backend.security import iso, now
 
 
-@pytest.fixture
-def app(tmp_path):
-    return create_app(
-        Settings(database=str(tmp_path / "test.sqlite3"), environment="test", auth_limit=1000)
+@pytest.fixture(params=["sqlite"] + (["postgres"] if os.getenv("PANTRY_TEST_POSTGRES") else []))
+def app(tmp_path, request):
+    if request.param == "sqlite":
+        yield create_app(
+            Settings(database=str(tmp_path / "test.sqlite3"), environment="test", auth_limit=1000)
+        )
+        return
+    if request.node.get_closest_marker("sqlite_only"):
+        pytest.skip("This test exercises SQLite-specific backup or schema migration")
+    base_url = os.environ["PANTRY_TEST_POSTGRES"]
+    schema = "test_" + uuid4().hex
+    with psycopg.connect(base_url, autocommit=True) as admin:
+        admin.execute(sql.SQL("CREATE SCHEMA {}").format(sql.Identifier(schema)))
+    parts = urlsplit(base_url)
+    options = dict(parse_qsl(parts.query))
+    options["options"] = "-csearch_path=" + schema
+    database = urlunsplit(
+        (parts.scheme, parts.netloc, parts.path, urlencode(options), parts.fragment)
     )
+    try:
+        yield create_app(Settings(database=database, environment="test", auth_limit=1000))
+    finally:
+        with psycopg.connect(base_url, autocommit=True) as admin:
+            admin.execute(sql.SQL("DROP SCHEMA {} CASCADE").format(sql.Identifier(schema)))
 
 
 @pytest.fixture

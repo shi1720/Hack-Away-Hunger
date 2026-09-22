@@ -98,6 +98,13 @@ class SiteUpdate(Input):
     capacity_lb: PositiveWeight | None = None
     notes: Notes | None = None
 
+    @field_validator("storage_types")
+    @classmethod
+    def unique_storage(cls, value):
+        if value is not None and len(set(value)) != len(value):
+            raise ValueError("Storage types must be unique")
+        return value
+
 
 class DatedInput(Input):
     @field_validator("expires_at", "service_at", check_fields=False)

@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   BarChart3,
   Boxes,
-  ChevronDown,
   LayoutDashboard,
   Leaf,
   LogOut,
@@ -57,12 +56,60 @@ export default function App() {
     [dialog, setDialog] = useState<DialogState | null>(null),
     [toast, setToast] = useState(""),
     [mobile, setMobile] = useState(false),
+    [smallScreen, setSmallScreen] = useState(
+      () => window.matchMedia("(max-width: 680px)").matches,
+    ),
     [refreshing, setRefreshing] = useState(false),
     [config, setConfig] = useState<PublicConfig>({
       demo_enabled: true,
       demo_only: false,
       registration_enabled: true,
     });
+  const sidebarRef = useRef<HTMLElement>(null);
+  useEffect(() => {
+    const media = window.matchMedia("(max-width: 680px)");
+    const update = () => {
+      setSmallScreen(media.matches);
+      if (!media.matches) setMobile(false);
+    };
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
+  useEffect(() => {
+    if (!mobile || !smallScreen) return;
+    const previousFocus = document.activeElement as HTMLElement | null;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const sidebar = sidebarRef.current;
+    sidebar?.querySelector<HTMLButtonElement>(".mobile-close")?.focus();
+    const handleKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        setMobile(false);
+      }
+      if (event.key !== "Tab" || !sidebar) return;
+      const controls = Array.from(
+        sidebar.querySelectorAll<HTMLElement>(
+          "button:not(:disabled), a[href], [tabindex='0']",
+        ),
+      ).filter((element) => element.getClientRects().length > 0);
+      const first = controls[0],
+        last = controls[controls.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last?.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first?.focus();
+      }
+    };
+    document.addEventListener("keydown", handleKey);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener("keydown", handleKey);
+      previousFocus?.focus();
+    };
+  }, [mobile, smallScreen]);
   useEffect(() => {
     void api<PublicConfig>("/config")
       .then(setConfig)
@@ -79,6 +126,7 @@ export default function App() {
     const data = await api<Workspace>("/workspace");
     setWorkspace(data);
     setUser(data.user);
+    setError("");
   }
   useEffect(() => {
     const expired = () => {
@@ -198,11 +246,20 @@ export default function App() {
       {mobile && (
         <button
           className="sidebar-scrim"
-          aria-label="Close navigation"
+          aria-label="Close navigation backdrop"
+          tabIndex={-1}
           onClick={() => setMobile(false)}
         />
       )}
-      <aside className={`sidebar ${mobile ? "is-open" : ""}`}>
+      <aside
+        ref={sidebarRef}
+        id="workspace-navigation"
+        className={`sidebar ${mobile ? "is-open" : ""}`}
+        inert={smallScreen && !mobile}
+        role={smallScreen && mobile ? "dialog" : undefined}
+        aria-modal={smallScreen && mobile ? true : undefined}
+        aria-label={smallScreen && mobile ? "Workspace navigation" : undefined}
+      >
         <div className="sidebar-logo">
           <Logo />
           <button
@@ -223,7 +280,6 @@ export default function App() {
               {w?.network.is_demo ? "DEMO WORKSPACE" : "PRIVATE WORKSPACE"}
             </small>
           </div>
-          <ChevronDown size={14} />
         </div>
         <div className="nav-label">YOUR WORKSPACE</div>
         <nav aria-label="Main navigation">
@@ -235,12 +291,16 @@ export default function App() {
                 key={n.id}
                 className={`nav-item ${currentPage === n.id ? "active" : ""}`}
                 onClick={() => setPage(n.id)}
+                aria-label={n.label}
                 aria-current={currentPage === n.id ? "page" : undefined}
               >
                 <n.icon size={19} />
                 <span>{n.label}</span>
                 {n.id === "deliveries" && !!w?.metrics.active_transfers && (
-                  <span className="nav-count">
+                  <span
+                    className="nav-count"
+                    aria-label={`${w.metrics.active_transfers} active relays`}
+                  >
                     {w.metrics.active_transfers}
                   </span>
                 )}
@@ -289,11 +349,13 @@ export default function App() {
           </div>
         </div>
       </aside>
-      <div className="app-main">
+      <div className="app-main" inert={smallScreen && mobile}>
         <header className="workspace-header">
           <button
             className="icon-button mobile-menu"
             aria-label="Open navigation"
+            aria-expanded={mobile}
+            aria-controls="workspace-navigation"
             onClick={() => setMobile(true)}
           >
             <Menu size={23} />
@@ -387,8 +449,14 @@ export default function App() {
           workspace={w}
           onClose={() => setDialog(null)}
           onSaved={async (message) => {
-            await refresh();
             setToast(message);
+            try {
+              await refresh();
+            } catch {
+              setError(
+                "Your change was saved, but the view could not refresh. Retry the refresh to see the latest records. Do not submit the same change again.",
+              );
+            }
           }}
         />
       )}

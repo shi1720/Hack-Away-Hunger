@@ -23,6 +23,7 @@ import {
   Truck,
   X,
 } from "lucide-react";
+import { ApiError } from "./api";
 import type { Category, Site, Storage, Transfer } from "./types";
 export const categories: Category[] = [
   "produce",
@@ -218,21 +219,26 @@ export function ActionForm({
   children,
   submit = "Save",
   onCancel,
+  onConflict,
 }: {
   onSubmit: (data: FormData) => Promise<void>;
   children: ReactNode;
   submit?: string;
   onCancel: () => void;
+  onConflict?: () => Promise<void>;
 }) {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
+  const [conflict, setConflict] = useState(false);
   async function handle(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setBusy(true);
     setError("");
+    setConflict(false);
     try {
       await onSubmit(new FormData(e.currentTarget));
     } catch (e) {
+      setConflict(e instanceof ApiError && e.status === 409);
       setError(
         e instanceof Error
           ? e.message
@@ -246,6 +252,24 @@ export function ActionForm({
     <form onSubmit={handle} className="action-form">
       {children}
       {error && <Alert>{error}</Alert>}
+      {conflict && onConflict && (
+        <Button
+          variant="secondary"
+          loading={busy}
+          onClick={async () => {
+            setBusy(true);
+            try {
+              await onConflict();
+            } catch (e) {
+              setError((e as Error).message);
+            } finally {
+              setBusy(false);
+            }
+          }}
+        >
+          Close and reload latest stock
+        </Button>
+      )}
       <div className="modal-foot">
         <Button variant="secondary" onClick={onCancel} disabled={busy}>
           Cancel

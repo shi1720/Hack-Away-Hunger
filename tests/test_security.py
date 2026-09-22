@@ -5,7 +5,7 @@ from conftest import action, register, reserve
 from fastapi.testclient import TestClient
 
 from backend.config import Settings
-from backend.db import transaction
+from backend.db import is_postgres, transaction
 from backend.main import create_app
 from backend.security import COOKIE, digest, iso, now
 
@@ -374,7 +374,8 @@ def test_demo_cleanup_removes_old_networks_without_affecting_real_networks(clien
         assert conn.execute(
             "SELECT 1 FROM networks WHERE id=?", (real["user"]["network_id"],)
         ).fetchone()
-        assert not conn.execute("PRAGMA foreign_key_check").fetchall()
+        if not is_postgres(app.state.settings.database):
+            assert not conn.execute("PRAGMA foreign_key_check").fetchall()
 
 
 def test_password_strength_and_unknown_fields_are_validated(client):

@@ -220,6 +220,16 @@ export default function Forms({
         <ActionForm
           onCancel={onClose}
           submit={l ? "Save adjustment" : "Add food lot"}
+          onConflict={
+            l
+              ? async () => {
+                  await onSaved(
+                    "Inventory refreshed. Open Adjust to review the latest stock.",
+                  );
+                  onClose();
+                }
+              : undefined
+          }
           onSubmit={(f) =>
             save(
               l ? `/lots/${l.id}` : "/lots",
@@ -309,7 +319,7 @@ export default function Forms({
               defaultChecked={l?.restricted}
             />
             <span>
-              <strong>Restricted food — do not transfer</strong>
+              <strong>Restricted food: do not transfer</strong>
               <small>Use for donor restrictions or other sharing limits.</small>
             </span>
           </label>
@@ -493,9 +503,9 @@ export default function Forms({
             <Field label="Team member role">
               <select name="role">
                 <option value="coordinator">
-                  Coordinator — inventory, planning and handoffs
+                  Coordinator: inventory, planning and handoffs
                 </option>
-                <option value="driver">Driver — pickup and arrival only</option>
+                <option value="driver">Driver: pickup and arrival only</option>
               </select>
             </Field>
             <InfoNote>

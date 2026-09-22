@@ -21,3 +21,6 @@ backups/
 *.sqlite3-*
 .codex-finalizer/
 *.tsbuildinfo
+.firebase/
+firebase-debug.log
+*.log

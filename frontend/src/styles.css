@@ -5190,3 +5190,25 @@ td small,
   background: #536f3e;
   border-color: #536f3e;
 }
+
+@media (max-width: 680px) {
+  .sidebar {
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  .sidebar-logo,
+  .network-selector,
+  .sidebar nav,
+  .sidebar-bottom {
+    flex-shrink: 0;
+  }
+}
+
+/* Keep table-only scrolling contained, including visually hidden header labels. */
+.table-scroll {
+  position: relative;
+  max-width: 100%;
+}
+.search-field {
+  min-width: 0;
+}

@@ -1,0 +1,13 @@
+.gcloudignore
+.git
+.gitignore
+#!include:.gitignore
+artifacts
+output
+research
+submission
+browser-tests
+tests
+.codex-finalizer
+firebase-debug.log
+*.log
