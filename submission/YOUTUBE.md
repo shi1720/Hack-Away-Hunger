@@ -1,6 +1,6 @@
 # YouTube metadata
 
-Publication status: 1080p video rendered and available on the verified public walkthrough at https://pantryrelay.web.app/demo. YouTube account terms confirmation is awaiting the participant; no YouTube upload has occurred. Devpost details are saved, but its supported-platform video URL remains missing and final submission is incomplete.
+Publication status: 1080p video rendered and available on the verified public walkthrough at https://pantryrelay.web.app/demo. The participant confirmed publication on September 22. The MP4 was selected in YouTube Studio, which then required a fresh Google sign-in. Upload and publication are not complete; the existing passkey Touch ID prompt in Safari is awaiting the participant. Devpost details are saved, but its supported-platform video URL remains missing and final submission is incomplete.
 
 ## Title
 

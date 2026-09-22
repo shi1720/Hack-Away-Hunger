@@ -51,7 +51,7 @@ The demonstration video has rendered to `output/Pantry-Relay-Demo.mp4`: 1920 by 
 
 ## Submission status
 
-The Devpost overview has been saved with the project name and elevator pitch. The story, nine technology tags, three URLs and three captioned gallery images were saved, advancing to Additional info. The required supported-platform video URL is still missing. There is no separate testing-instructions field; the form offers an optional upload up to 35 MB, for which the public submission ZIP is prepared. No final submission has been made. YouTube account terms confirmation is awaiting the participant; no YouTube upload is claimed.
+The Devpost overview has been saved with the project name and elevator pitch. The story, nine technology tags, three URLs and three captioned gallery images were saved, advancing to Additional info. The required supported-platform video URL is still missing. There is no separate testing-instructions field; the form offers an optional upload up to 35 MB, for which the public submission ZIP is prepared. No final submission has been made. The participant confirmed publication, but YouTube required fresh Google authentication after MP4 selection. The passkey Touch ID prompt is awaiting the participant; successful YouTube upload is not yet claimed.
 
 ## Reproduce
 
