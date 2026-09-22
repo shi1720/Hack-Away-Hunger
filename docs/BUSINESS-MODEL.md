@@ -28,7 +28,7 @@ No payment collection is implemented. There is no artificial checkout in the app
 | Contribution before sales, development, tax and overhead | $104 |
 | Contribution margin under these assumptions | 69.8% |
 
-At 10 networks, these assumptions yield $1,490 monthly revenue and $1,040 contribution before overhead. These are scenarios, not projections. Hosting allocation assumes infrastructure sharing without crossing tenant boundaries; the delivered deployment is a single instance, so actual infrastructure and support costs must be measured.
+At 10 networks, these assumptions yield $1,490 monthly revenue and $1,040 contribution before overhead. These are scenarios, not projections. Hosting allocation assumes infrastructure sharing without crossing tenant boundaries; the hosted release uses a dedicated Cloud SQL database and at most two Cloud Run instances, so actual infrastructure and support costs must be measured. The small Cloud SQL instance has an estimated baseline cost of roughly $8 to $12 monthly including storage, before traffic, backup growth and taxes. This is a cost estimate, not an invoice or a free-tier promise.
 
 Value hurdle: at a hypothetical $25/hour coordinator cost, $149 requires **5.96 hours saved per month** to break even on labor alone. We will ask operators for their actual time and loaded costs rather than treating this as established ROI. Do not assign a retail value to transferred pounds or claim all transferred food would otherwise have been wasted.
 

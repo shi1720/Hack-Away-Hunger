@@ -43,7 +43,7 @@ The backend rechecks feasibility when a coordinator commits a proposal. Transact
 
 Authentication uses hashed passwords and cookie sessions. Changes require CSRF protection, permissions are enforced by the server, and reports stay within the authenticated network. There is no required AI service or paid mapping API in the operating workflow.
 
-The backend suite reports **115 passing tests across SQLite and PostgreSQL**, with **five storage-specific skips**. Browser checks exercise the complete handoff, account and permission flows, and mobile behavior. An automated accessibility audit reported zero WCAG 2.1 A/AA violations across 24 views and states in the reviewed local build. These establish specific engineering behavior, not field effectiveness or a security or accessibility certification. The final verification record distinguishes local checks from the public deployment. Full reproduction steps and the judge walkthrough are in `submission/TESTING-INSTRUCTIONS.md`.
+The backend suite reports **120 passing tests across SQLite and PostgreSQL**, with **five storage-specific skips**. Browser checks exercise the complete handoff, account and permission flows, and mobile behavior. An automated accessibility audit reported zero WCAG 2.1 A/AA violations across 24 views and states in the reviewed local build. These establish specific engineering behavior, not field effectiveness or a security or accessibility certification. The final verification record distinguishes local checks from the public deployment. Full reproduction steps and the judge walkthrough are in `submission/TESTING-INSTRUCTIONS.md`.
 
 ## Challenges we ran into
 

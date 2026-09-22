@@ -158,7 +158,7 @@ This backup command is for SQLite. Use a new backup filename because overwrite i
 
 ## Recorded results and limits
 
-The latest reported backend verification is **115 passing tests across SQLite and PostgreSQL**, with **five storage-specific skips**. Ruff and the TypeScript production build passed. Completed local Chromium checks cover the receipt flow, empty-network onboarding, mobile/dialog behavior, core accessibility, driver invitation and expired-session recovery. A rendered axe audit found zero WCAG 2.1 A/AA violations across **24 views and states**. A 390-pixel viewport had no horizontal page overflow. Further browser scenarios and hosted checks are being verified separately; use the final record for their exact count.
+The latest reported backend verification is **120 passing tests across SQLite and PostgreSQL**, with **five storage-specific skips**. Ruff and the TypeScript production build passed. Completed local Chromium checks cover the receipt flow, empty-network onboarding, mobile/dialog behavior, core accessibility, driver invitation and expired-session recovery. A rendered axe audit found zero WCAG 2.1 A/AA violations across **24 views and states**. A 390-pixel viewport had no horizontal page overflow. Further browser scenarios and hosted checks are being verified separately; use the final record for their exact count.
 
 `docs/VERIFICATION.md` is the canonical results record. `artifacts/verification/frontend-accessibility.json` contains the 24-state accessibility findings. Local success does not establish hosted success. Use the final deployment verification record for the exact live URL, test date and hosted checks.
 

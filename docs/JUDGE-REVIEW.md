@@ -14,7 +14,7 @@ The principal remaining uncertainty is whether enough real, permitted pantry-to-
 | --- | ---: | ---: | --- |
 | Community impact | 30 | 22 | Direct link between declared need and recorded food receipt; sensible measurement plan and no household data. No field baseline, participating pantry or observed impact yet. |
 | Innovation | 20 | 14 | Source reserve protection, service-specific demand and accountable receipt form a distinctive focus. Existing rescue platforms already have matching and dispatch, so this is a focused workflow improvement rather than a wholly new category. |
-| Technical execution | 20 | 18 | Real persistence, role and tenant controls, exact quantity accounting, transactional reservations, state transitions, audit/export and meaningful regression tests. Verified accounting repairs and an independently checked failure closeout strengthen this score. The implementer reports 56 passing backend tests; supplied browser evidence covers persistence, partial receipt and export. |
+| Technical execution | 20 | 18 | Real persistence, role and tenant controls, exact quantity accounting, transactional reservations, state transitions, audit/export and meaningful regression tests. Verified accounting repairs and an independently checked failure closeout strengthen this score. The implementer reports 120 passing backend tests across SQLite and PostgreSQL, with five storage-specific skips; supplied browser evidence covers persistence, partial receipt, export and account flows. The public cloud deployment is a separate verification target. |
 | Feasibility and sustainability | 15 | 11 | One network buyer, low infrastructure dependency, honest price/cost assumptions, free self-hosting and a practical pilot. Entry burden, transfer economics, integration needs and willingness to pay are still unvalidated. |
 | User experience and design | 10 | 8 | Cohesive, polished visual system and a clear partial-receipt workflow; supplied mobile screenshots stack cleanly, with reported no 390px overflow and successful Escape handling. Final automated axe results show zero WCAG 2.1 A/AA violations across 24 views/states. Operational recovery and field labels are repaired. Actual volunteer usability, assistive-technology use and full keyboard navigation still need observation. |
 | Presentation | 5 | 4 | Strong single-story script, candid competitor positioning, usable judge answers and a concrete pilot ask. Final recording, deck rendering and in-person eligibility are not established by this review. |
@@ -24,7 +24,7 @@ The accessibility repairs remove the known contrast and field-label defects. The
 
 ## Review method and independent checks
 
-Used temporary SQLite databases under a disposable test directory. No real workspace data was changed. The existing backend test suite was read rather than redundantly executed in full; the backend implementer owns the suite run and its results. This reviewer ran narrow API reproductions for identified issues and independent access-control probes. The backend implementer subsequently reported 56 passing tests and clean Ruff checks; that is a reported suite result, not an independent rerun by this reviewer.
+Used temporary SQLite databases under a disposable test directory. No real workspace data was changed. The existing backend test suite was read rather than redundantly executed in full; the backend implementer owns the suite run and its results. This reviewer ran narrow API reproductions for identified issues and independent access-control probes. The backend implementer subsequently reported 120 passing tests across SQLite and PostgreSQL, five storage-specific skips and clean Ruff checks. That is a reported suite result, not an independent rerun by this reviewer. The initial six local Chromium scenarios were also reported passing; an expanded browser suite and public-host checks are being verified separately.
 
 An attempted direct browser review could not start: the in-app browser was unavailable and Chrome session setup failed on runtime authentication. No browser interactions or operational records were changed by this reviewer. Instead, the reviewer visually inspected `artifacts/screenshots/landing.png`, `overview.png`, `planner.png`, `impact.png` and `mobile.png`. The coordinating reviewer reported successful actual-browser partial receipt, CSV download, reload persistence, reopened 8-pound need, 390px mobile overflow check and Escape dismissal. This is supplied execution evidence, not a claim that this reviewer personally ran those browser actions.
 
@@ -94,7 +94,7 @@ Static CSS review also identified **P2 contrast/readability issues** in the init
 
 The rendered identity is consistent across landing, planning and reporting: a forest-green sidebar, warm background, restrained accent and readable large serif headings. The planner gives the food, source/destination and quantity distinct positions. The 112-pound receipt view is a strong presentation moment without pretending to count people. Mobile retains the important content without overlapping panels in the supplied screenshot.
 
-The first screenshot set exposed overly faint small metadata, which the subsequent stylesheet revisions address. A remaining low-priority improvement is retaining visible text on the mobile overview's primary “Find a relay” action instead of an icon alone. The schematic map is useful orientation, but tiny map labels should stay supplemental to the accessible pantry list. No additional illustration or animation is needed to make this product more convincing.
+The first screenshot set exposed overly faint small metadata, which the subsequent stylesheet revisions address. The initial mobile screenshot made the primary action less obvious when reduced to an icon. Retaining its visible “Find a relay” text is a low-priority usability check on the final recording. The schematic map is useful orientation, but tiny map labels should stay supplemental to the accessible pantry list. No additional illustration or animation is needed to make this product more convincing.
 
 ## Additional operational repair
 
@@ -106,11 +106,24 @@ Account recovery is also supplied as an operator task: `scripts/account_admin.py
 
 ## Business and story review
 
-The $149/month offer is presented as a hypothesis for up to 10 sites. The value hurdle of 5.96 hours/month at a hypothetical $25/hour is arithmetically consistent. The cost model correctly separates its $30/hour support assumption and does not mistake contribution for profit. Ten paying networks would not yet constitute a mature business; the materials acknowledge the lean economics.
+The $149/month offer is presented as a hypothesis for up to 10 sites. The value hurdle of 5.96 hours/month at a hypothetical $25/hour is arithmetically consistent. The cost model correctly separates its $30/hour support assumption and does not mistake contribution for profit. The illustrative $15 infrastructure allocation is not a measured Cloud SQL bill; actual managed-hosting costs and any temporary credits must be reconciled before quoting hosted margins. Ten paying networks would not yet constitute a mature business; the materials acknowledge the lean economics.
 
 The six-week pilot has a named buyer, a baseline, a small participating network, existing transport and explicit stop rules. It needs to answer whether genuine transferable surplus exists, whether entry creates more work than it removes, and whether transport is economical. Existing MealConnect, Food Rescue Hero and pantry software remain credible alternatives or integration partners. The pitch must preserve that honesty.
 
-The narrative should emphasize **a service gap, a protected reserve and a verified receipt**. Show one partial receipt, then its remaining gap and audit export. Avoid spending the demo on a long list of unrelated features. Explain that receipt totals measure pantry-to-pantry movement, not new food rescued or people fed.
+The narrative should emphasize **a service gap, a protected reserve and an operator-confirmed receipt**. Show one partial receipt, then its remaining gap and audit export. Avoid spending the demo on a long list of unrelated features. Explain that receipt totals measure pantry-to-pantry movement, not new food rescued or people fed.
+
+## Remaining high-value work before submission
+
+| Priority | Remaining issue | Concrete completion check |
+| --- | --- | --- |
+| P1 | The clean Firebase URL is allocated, but the reviewed local checks do not prove the deployed PostgreSQL-backed service works. | Run account registration, invite/join, complete receipt, CSV download, reload and session behavior at `https://pantryrelay.web.app`. Verify the record survives application revision/restart, and record results rather than inferring them from a green local suite. |
+| P1 | The storage and hosting design changed after the original copy was written. Conflicting SQLite-only descriptions or old test counts would weaken credibility. | Reconcile README, architecture, deployment, verification, pitch and Devpost around SQLite self-hosting plus PostgreSQL cloud operation. Keep count claims out of the spoken video and use the final verification record in written materials. |
+| P2 | The $149 price and $15 infrastructure allocation remain hypotheses, and managed database cost can change the margin. | Record actual cloud resources, a non-promotional monthly estimate and a cost owner. Preserve the distinction between proposed price, assumed support cost and observed cost. |
+| P2 | A feature-heavy video could hide the most persuasive behavior. | Center the actual 120 dispatched, 112 accepted and 8 remaining sequence. Show the operator-confirmed receipt and remaining need. Keep the fictional-data and synthetic-voice disclosures visible. |
+
+The final narration has 415 spoken words across ten short segments, with matching application scenes. It can support a natural three-minute demonstration; the rendered audio and cuts still determine the actual duration. No new major accounting defect was found in the final source pass. The new PostgreSQL adapter uses transaction-wide advisory write locking and repeatable read snapshots, preserving the deliberately bounded concurrency model. This source review is not a substitute for its reported regression run or the live deployment checks.
+
+The largest unresolved product risk remains adoption. Required stock/need entry, manually supplied coordinates and transport coordination impose real operator work. These should be observed in the proposed pilot before adding integrations or expansion. A willingness-to-pay claim cannot be repaired by improving the wording.
 
 ## Final release checks for the coordinating reviewer
 

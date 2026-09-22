@@ -20,7 +20,7 @@ Prerequisites: Python 3.11+, Node.js 22+, npm, and [uv](https://docs.astral.sh/u
 ./scripts/start.sh
 ```
 
-Open **http://localhost:8010**. Choose **Explore the demo** for an isolated workspace containing fictitious pantries and relative dates, or create an account for an empty network. No API keys, cloud account, payment method, or internet connection are required for the running app after dependencies are installed.
+Open **http://localhost:8010**. Choose **Explore the live demo** for an isolated workspace containing fictitious pantries and relative dates, or create an account for an empty network. No API keys, cloud account, payment method, or internet connection are required for the running app after dependencies are installed.
 
 For development, run the backend and frontend separately:
 
@@ -53,7 +53,7 @@ The app deliberately reports **received pounds**, not unverified meals, people f
 3. Reserve the produce transfer and open **Deliveries**.
 4. Record receiver acceptance, pickup, and arrival.
 5. Receive fewer pounds than dispatched and explain the difference.
-6. Open **Impact**. Only accepted pounds count; the remaining need and audit evidence stay visible.
+6. Open **Impact & reports**. Only accepted pounds count; the remaining need and audit evidence stay visible.
 
 Full narration and shot list: [submission/DEMO-SCRIPT.md](submission/DEMO-SCRIPT.md).
 
@@ -65,9 +65,9 @@ cd frontend
 npm run build
 ```
 
-See [VERIFICATION.md](docs/VERIFICATION.md) for the actual checks performed and their limits. The backend uses tenant-scoped queries, transactional SQLite writes, HttpOnly session cookies, CSRF checks, password hashing and server-side role checks. See [SECURITY.md](SECURITY.md).
+See [VERIFICATION.md](docs/VERIFICATION.md) for the actual checks performed and their limits. The backend uses tenant-scoped queries, transactional PostgreSQL or SQLite writes, HttpOnly session cookies, CSRF checks, password hashing and server-side role checks. See [SECURITY.md](SECURITY.md).
 
-Deployment uses one application instance and a persistent SQLite volume. [Docker Compose](compose.yaml), a [Dockerfile](Dockerfile), and [deployment instructions](docs/DEPLOYMENT.md) are included. Free ephemeral cloud filesystems are suitable only for disposable demos, not pantry records. This is a working release for a supervised pilot; it has not received an independent security audit or real pantry validation.
+The Firebase deployment uses Cloud Run and durable Cloud SQL PostgreSQL. Self-hosting can use one application instance with a persistent SQLite volume. [Docker Compose](compose.yaml), a [Dockerfile](Dockerfile), and [deployment instructions](docs/DEPLOYMENT.md) are included. Free ephemeral cloud filesystems are suitable only for disposable demos, not pantry records. This is a working release for a supervised pilot; it has not received an independent security audit or real pantry validation.
 
 ## Submission and adoption kit
 

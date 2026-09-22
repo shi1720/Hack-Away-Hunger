@@ -128,7 +128,7 @@ An included operator command supports interactive password resets and session re
 
 ### How was it tested?
 
-“The backend implementer reports 115 passing tests across SQLite and PostgreSQL, with five storage-specific skips. They cover stock and capacity accounting, state transitions, partial and rejected receipts, concurrent reservations, network isolation and permissions. An independent review reproduced and rechecked accounting edge cases with isolated databases. The reviewed local axe scan reports zero automatically detectable WCAG 2.1 A/AA violations across 24 views and states, and the 390-pixel mobile layout was checked for horizontal overflow.”
+“The backend implementer reports 120 passing tests across SQLite and PostgreSQL, with five storage-specific skips. They cover stock and capacity accounting, state transitions, partial and rejected receipts, concurrent reservations, network isolation and permissions. An independent review reproduced and rechecked accounting edge cases with isolated databases. The reviewed local axe scan reports zero automatically detectable WCAG 2.1 A/AA violations across 24 views and states, and the 390-pixel mobile layout was checked for horizontal overflow.”
 
 “Browser checks also exercised a partial receipt, CSV download and persistence after reload. These are engineering checks, not a security audit, accessibility certification or a field usability study.” Use the final verification document for the complete, current scenario results.
 

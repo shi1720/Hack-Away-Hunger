@@ -498,3 +498,23 @@ test("temporary API failure preserves form input and gives a readable retry mess
     page.getByRole("heading", { name: "Retry fixture pantry", exact: true }),
   ).toBeVisible();
 });
+
+test("signing out from the mobile drawer restores page scrolling and clears navigation", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await demo(page);
+  await page
+    .getByRole("button", { name: "Open navigation", exact: true })
+    .click();
+  await page.getByRole("button", { name: "Sign out", exact: true }).click();
+  await expect(
+    page.getByRole("button", { name: "Explore the live demo", exact: true }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("dialog", { name: "Workspace navigation", exact: true }),
+  ).toHaveCount(0);
+  expect(await page.evaluate(() => document.body.style.overflow)).not.toBe(
+    "hidden",
+  );
+});

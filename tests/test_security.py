@@ -256,7 +256,9 @@ def test_coordinator_cannot_escalate_to_admin_and_expired_invites_rejected(real_
 
 
 def test_auth_rate_limit_persists_across_client_sessions(tmp_path):
-    app = create_app(Settings(database=str(tmp_path / "limited.sqlite3"), auth_limit=2))
+    app = create_app(
+        Settings(database=str(tmp_path / "limited.sqlite3"), auth_limit=2, auth_ip_limit=2)
+    )
     with TestClient(app) as client:
         for _ in range(2):
             assert (

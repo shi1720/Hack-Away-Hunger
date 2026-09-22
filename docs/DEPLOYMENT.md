@@ -36,9 +36,7 @@ See [PostgreSQL deployment and recovery](POSTGRESQL.md) for the exact configurat
 
 For a separate free demonstration service, use the same production security settings with `PANTRY_DEMO_ONLY=true` and `PANTRY_DEMO_ENABLED=true`. This mode disables real account creation and invitations, creates isolated sample workspaces, and labels the app as disposable. Set the allowed host to the actual public service hostname. All state can disappear when an ephemeral host restarts. Do not put real records into this mode.
 
-## Free cloud hosting caveat
-
-Render's free web service filesystem is ephemeral and its free Postgres expires after 30 days. A free web service with SQLite is therefore only a disposable demo, not durable storage. Official docs checked September 22, 2026: https://render.com/docs/free and https://render.com/docs/disks.
+## Cloud operating cost
 
 The selected Firebase and Cloud SQL deployment is a metered cloud service. Cloud SQL has ongoing instance and storage charges even when Cloud Run scales to zero. Set a budget alert, verify the instance size and region, and assign responsibility for the bill. It is not a permanent free production offer. No cloud account is required to evaluate the complete local SQLite application.
 

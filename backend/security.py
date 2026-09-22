@@ -116,17 +116,21 @@ def require_admin(user: dict) -> None:
 
 
 def throttle(request: Request, email: str | None = None) -> None:
-    """No trust in forwarded headers. Reverse proxies must preserve meaningful client IPs."""
+    """Limit observed client IP and normalized account separately, without trusting XFF.
+
+    A deployment behind a shared proxy may raise only the aggregate IP allowance.
+    Account-specific throttling remains independent of that deployment setting.
+    """
+    settings = request.app.state.settings
     client_ip = request.client.host if request.client else "unknown"
-    keys = [digest("ip:" + client_ip)]
+    limits = [(digest("ip:" + client_ip), settings.auth_ip_limit)]
     if email:
-        keys.append(digest("email:" + email.lower()))
+        limits.append((digest("email:" + email.lower()), settings.auth_limit))
     timestamp = time.time()
-    limit = request.app.state.settings.auth_limit
     blocked = False
     with transaction(request.app.state.settings.database, write=True) as conn:
         conn.execute("DELETE FROM auth_attempts WHERE occurred_at<?", (timestamp - 900,))
-        for key in keys:
+        for key, limit in limits:
             count = conn.execute(
                 "SELECT COUNT(*) FROM auth_attempts WHERE key=?", (key,)
             ).fetchone()[0]
@@ -134,7 +138,8 @@ def throttle(request: Request, email: str | None = None) -> None:
                 blocked = True
         if not blocked:
             conn.executemany(
-                "INSERT INTO auth_attempts VALUES (?,?)", [(key, timestamp) for key in keys]
+                "INSERT INTO auth_attempts VALUES (?,?)",
+                [(key, timestamp) for key, _limit in limits],
             )
     if blocked:
         raise HTTPException(

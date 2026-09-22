@@ -18,7 +18,7 @@ gcloud run deploy "$PANTRY_SERVICE" --project="$PANTRY_PROJECT" --region="$PANTR
   --port=8000 --cpu=1 --memory=512Mi --min=0 --max=2 --concurrency=8 --timeout=60 \
   --add-cloudsql-instances="$PANTRY_CONNECTION" \
   --set-secrets=PANTRY_DATABASE=pantry-relay-database:latest \
-  --set-env-vars="^|^PANTRY_ENV=production|PANTRY_COOKIE_SECURE=true|PANTRY_DEMO_ENABLED=true|PANTRY_DEMO_ONLY=false|PANTRY_ALLOW_PUBLIC_DEMO=true|PANTRY_ALLOWED_HOSTS=$PANTRY_HOSTS|PANTRY_TRUSTED_ORIGINS=https://$PANTRY_SITE.web.app,https://$PANTRY_SITE.firebaseapp.com" \
+  --set-env-vars="^|^PANTRY_ENV=production|PANTRY_COOKIE_SECURE=true|PANTRY_AUTH_IP_LIMIT=300|PANTRY_DEMO_ENABLED=true|PANTRY_DEMO_ONLY=false|PANTRY_ALLOW_PUBLIC_DEMO=true|PANTRY_ALLOWED_HOSTS=$PANTRY_HOSTS|PANTRY_TRUSTED_ORIGINS=https://$PANTRY_SITE.web.app,https://$PANTRY_SITE.firebaseapp.com" \
   --quiet
 PANTRY_API_URL="$(gcloud run services describe "$PANTRY_SERVICE" --project="$PANTRY_PROJECT" --region="$PANTRY_REGION" --format='value(status.url)')"
 PANTRY_API_HOST="${PANTRY_API_URL#https://}"

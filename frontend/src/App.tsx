@@ -66,6 +66,7 @@ export default function App() {
       registration_enabled: true,
     });
   const sidebarRef = useRef<HTMLElement>(null);
+  const navigationToggleRef = useRef<HTMLButtonElement>(null);
   useEffect(() => {
     const media = window.matchMedia("(max-width: 680px)");
     const update = () => {
@@ -76,8 +77,7 @@ export default function App() {
     return () => media.removeEventListener("change", update);
   }, []);
   useEffect(() => {
-    if (!mobile || !smallScreen) return;
-    const previousFocus = document.activeElement as HTMLElement | null;
+    if (!mobile || !smallScreen || !user) return;
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     const sidebar = sidebarRef.current;
@@ -107,9 +107,9 @@ export default function App() {
     return () => {
       document.body.style.overflow = previousOverflow;
       document.removeEventListener("keydown", handleKey);
-      previousFocus?.focus();
+      navigationToggleRef.current?.focus();
     };
-  }, [mobile, smallScreen]);
+  }, [mobile, smallScreen, user?.id]);
   useEffect(() => {
     void api<PublicConfig>("/config")
       .then(setConfig)
@@ -134,6 +134,7 @@ export default function App() {
       setUser(null);
       setWorkspace(null);
       setDialog(null);
+      setMobile(false);
       setError(
         "Your session has expired. Sign in again or open a fresh demo workspace.",
       );
@@ -175,6 +176,7 @@ export default function App() {
       setUser(null);
       setWorkspace(null);
       setDialog(null);
+      setMobile(false);
       setPageState("overview");
       window.history.replaceState({}, "", window.location.pathname);
     } catch (e) {
@@ -197,8 +199,8 @@ export default function App() {
     <div className="public-demo-banner">
       <ShieldCheck size={15} />
       <span>
-        <strong>Public demo</strong> · Fictitious data · Resets on restart. Do
-        not enter real pantry or personal information.
+        <strong>Public demo</strong> · Fictitious sample data. Do not enter real
+        pantry or personal information.
       </span>
     </div>
   ) : null;
@@ -352,6 +354,7 @@ export default function App() {
       <div className="app-main" inert={smallScreen && mobile}>
         <header className="workspace-header">
           <button
+            ref={navigationToggleRef}
             className="icon-button mobile-menu"
             aria-label="Open navigation"
             aria-expanded={mobile}

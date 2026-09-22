@@ -6,7 +6,7 @@ Date: September 22, 2026. Checks use fictitious data. This record separates auto
 
 | Check | Result |
 |---|---|
-| Backend automated suite |120 passing tests across SQLite and PostgreSQL; 5 intentional storage-specific skips|
+| Backend automated suite |129 passing tests across SQLite and PostgreSQL; 5 intentional storage-specific skips|
 | Backend lint |Ruff check and formatting pass|
 | TypeScript and production asset build |Pass|
 | Frontend dependency audit |0 reported vulnerabilities at build time|

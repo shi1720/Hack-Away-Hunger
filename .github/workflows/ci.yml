@@ -43,4 +43,42 @@ jobs:
       - run: npm ci && npm run build
         working-directory: frontend
       - run: ./scripts/test_browser.sh
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: browser-chromium-report
+          path: |
+            browser-tests/playwright-report/
+            browser-tests/test-results/
+          retention-days: 14
       - run: docker build -t pantry-relay:ci .
+
+  firefox-browser:
+    runs-on: ubuntu-latest
+    env:
+      PANTRY_BROWSER: firefox
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: '0.8.22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: uv sync --frozen
+      - run: npm ci && npm run build
+        working-directory: frontend
+      - run: ./scripts/test_browser.sh
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: browser-firefox-report
+          path: |
+            browser-tests/playwright-report/
+            browser-tests/test-results/
+          retention-days: 14

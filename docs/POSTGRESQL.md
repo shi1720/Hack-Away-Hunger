@@ -14,6 +14,7 @@ PANTRY_COOKIE_SECURE=true
 PANTRY_DEMO_ENABLED=true
 PANTRY_DEMO_ONLY=false
 PANTRY_ALLOW_PUBLIC_DEMO=true
+PANTRY_AUTH_IP_LIMIT=300
 PANTRY_ALLOWED_HOSTS=pantryrelay.web.app,pantryrelay.firebaseapp.com,EXACT_SERVICE_HOST.run.app
 PANTRY_TRUSTED_ORIGINS=https://pantryrelay.web.app,https://pantryrelay.firebaseapp.com
 ```
@@ -21,6 +22,12 @@ PANTRY_TRUSTED_ORIGINS=https://pantryrelay.web.app,https://pantryrelay.firebasea
 Use the actual Cloud Run hostname in `PANTRY_ALLOWED_HOSTS`. Wildcard hosts and wildcard origins are rejected in production. Firebase Hosting forwards the `__session` cookie to the backend; the cookie is HttpOnly and Secure in production. Authentication and workspace responses use `Cache-Control: no-store`.
 
 Production supports real accounts and isolated demos together only when PostgreSQL and `PANTRY_ALLOW_PUBLIC_DEMO=true` are configured explicitly. Demo networks cannot invite real members. Demo creation reclaims disposable workspaces older than 24 hours; this cleanup does not delete real networks.
+
+## Authentication quotas behind a shared proxy
+
+Authentication has separate 15-minute quotas: 30 attempts per normalized email address and, by default, 30 attempts per observed client IP. The hosted service explicitly sets `PANTRY_AUTH_IP_LIMIT=300` because Firebase and Cloud Run may present a shared proxy address. This setting accepts values from 1 through 1000 and changes only the aggregate IP allowance; it does not raise the email limit.
+
+The backend does not trust user-supplied `X-Forwarded-For` to bypass its quota. This is a coarse shared-proxy abuse control, not precise per-person rate limiting. A busy shared proxy can still exhaust its aggregate allowance; the service returns 429 with a 15-minute retry hint. Monitor authentication failures and use trusted edge controls if traffic grows.
 
 ## Transaction behavior and limits
 

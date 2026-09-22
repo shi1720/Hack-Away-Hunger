@@ -29,6 +29,7 @@ class Settings:
     allowed_hosts: tuple[str, ...] = ("localhost", "127.0.0.1", "testserver")
     session_hours: int = 12
     auth_limit: int = 30
+    auth_ip_limit: int = 30
     frontend: str = str(Path(__file__).resolve().parent.parent / "frontend" / "dist")
 
     @classmethod
@@ -46,6 +47,7 @@ class Settings:
                 if origin.strip()
             ),
             cookie_secure=flag("PANTRY_COOKIE_SECURE", env == "production"),
+            auth_ip_limit=int(os.getenv("PANTRY_AUTH_IP_LIMIT", "30")),
             allowed_hosts=tuple(
                 h.strip()
                 for h in os.getenv("PANTRY_ALLOWED_HOSTS", "localhost,127.0.0.1,testserver").split(
@@ -60,6 +62,8 @@ class Settings:
             raise ValueError("PANTRY_ENV must be development, test, or production")
         if not self.allowed_hosts:
             raise ValueError("PANTRY_ALLOWED_HOSTS must contain an allowed host")
+        if not 1 <= self.auth_ip_limit <= 1000:
+            raise ValueError("PANTRY_AUTH_IP_LIMIT must be between 1 and 1000")
         if self.demo_only and not self.demo_enabled:
             raise ValueError("PANTRY_DEMO_ONLY requires PANTRY_DEMO_ENABLED=true")
         for origin in self.trusted_origins:

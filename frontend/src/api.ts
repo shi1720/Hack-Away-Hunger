@@ -20,7 +20,7 @@ async function request(path: string, options: RequestInit): Promise<Response> {
         "The request timed out. Refresh the workspace before retrying any change.",
       );
     throw new Error(
-      "Could not reach Pantry Relay. Check your connection and try again.",
+      "Could not reach Pantry Relay. Check your connection, then refresh the workspace before retrying a change.",
     );
   }
 }
