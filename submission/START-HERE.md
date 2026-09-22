@@ -4,10 +4,11 @@ Project lead: **Shivam Gupta**
 Event: **Hack Away Hunger 2026**
 Repository: https://github.com/shi1720/Hack-Away-Hunger
 Live app: https://pantryrelay.web.app
+Release downloads: https://github.com/shi1720/Hack-Away-Hunger/releases/tag/v1.0.0-pilot
 
 The live application is deployed and verified. It supports registration for an empty network and separate fictional demo workspaces. Hosted Chromium passed the complete 24-scenario suite. Hosted WebKit passed its 22-scenario baseline plus both added short-desktop regressions. A signed-in session with a reserved 120-pound transfer survived a forced Cloud Run revision replacement. See `docs/VERIFICATION.md` for the evidence and its limits.
 
-The 1080p demonstration video is rendered at `output/Pantry-Relay-Demo.mp4`. The public walkthrough target is https://pantryrelay.web.app/demo; deployment verification for that page is pending. The video is not yet published on YouTube and Devpost submission is not yet complete. Prepared assets and successful application tests are not publication confirmations.
+The 1080p demonstration video is rendered at `output/Pantry-Relay-Demo.mp4`. The public walkthrough at https://pantryrelay.web.app/demo is deployed and verified with unmuted playback in Chromium and WebKit, a working pitch PDF and a 390-pixel layout without horizontal overflow. The video is not yet published on YouTube. Devpost has saved the overview, branded thumbnail, story, nine technology tags, three URLs, three captioned gallery images and the 9.73 MB judge ZIP. Saving the attachment advanced to the finalization page with 3/5 steps complete. Its required supported-platform video URL is still missing; no final submission has been made. The browser tool requires upload-time YouTube terms confirmation; that confirmation is awaiting the participant.
 
 ## Run and rehearse
 
@@ -22,7 +23,8 @@ Run `./scripts/start.sh` and open http://localhost:8010. Enter a fresh demo. Use
 - `TESTING-INSTRUCTIONS.md`: judge walkthrough, account/driver tests, exceptions and automated reproduction
 - `JUDGE-QA.md`: likely objections and candid answers
 - `ORGANIZER-DRAFT.md`: eligibility and late-proposal clarification, unsent
-- `output/`: final pitch and PDF deliverables, when generated
+- `output/Pantry-Relay-Submission-Kit.zip`: public judge package under the optional 35 MB attachment limit
+- `output/`: rendered 1080p video, captions, pitch PDF and PowerPoint, and project brief PDF
 - `docs/VERIFICATION.md`: actual test results and remaining limits
 - `docs/PILOT-PLAN.md`: validation and adoption plan
 
@@ -34,7 +36,7 @@ Run `./scripts/start.sh` and open http://localhost:8010. Enter a fresh demo. Use
 
 ## Publishing checks
 
-Review the rendered demonstration video, its synthetic narration disclosure and the actual submission fields. The rendered video is 170.633333 seconds, approximately 2 minutes 51 seconds; inspect its final captions before uploading. The authenticated Devpost form determines required fields, video duration and visibility. Do not describe the submission or upload as complete until the corresponding platform confirms it.
+Review the rendered demonstration video, its synthetic narration disclosure and the actual submission fields. The rendered video is 170.633333 seconds, approximately 2 minutes 51 seconds; inspect its final captions before uploading. The inspected Devpost form requires a supported-platform video URL and offers an optional upload up to 35 MB. It does not have a separate testing-instructions field; the ZIP includes those instructions. Do not describe the final submission or YouTube upload as complete until the corresponding platform confirms it.
 
 The verified Firebase URL is ready for the submission's live-app field. The cloud stack uses Cloud Run and PostgreSQL on Cloud SQL; local self-hosting can use SQLite. Daily backups retain seven backups, and an on-demand Cloud SQL backup completed successfully. A restore drill remains a separate real-operation check. Managed cloud hosting has operating costs even when temporary credits are available. Keep fictional demo records separate from registered networks and real operations.
 

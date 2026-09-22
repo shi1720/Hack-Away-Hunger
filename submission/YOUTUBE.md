@@ -1,6 +1,6 @@
 # YouTube metadata
 
-Publication status: metadata prepared and 1080p video rendered; not yet published on YouTube. No YouTube URL or completed Devpost submission is claimed.
+Publication status: 1080p video rendered and available on the verified public walkthrough at https://pantryrelay.web.app/demo. YouTube account terms confirmation is awaiting the participant; no YouTube upload has occurred. Devpost details are saved, but its supported-platform video URL remains missing and final submission is incomplete.
 
 ## Title
 

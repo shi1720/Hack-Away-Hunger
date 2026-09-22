@@ -148,8 +148,14 @@
           "url": "https://pantryrelay.web.app/Pantry-Relay-Demo.mp4",
           "error": "cancelled"
         }
-      ]
+      ],
+      "request_note": "One MP4 range request was cancelled while seeking to 82 seconds. Seeking completed with readyState >=2; playback progressed with one audio track and no media, page, console or CSP errors."
     }
   },
-  "status": "passed"
+  "status": "passed",
+  "method": "Isolated Playwright contexts, unmuted HTMLMediaElement.play(), metadata and decoded audio/video checks, advancing currentTime, successful seek to 82 seconds, real PDF bytes, and 390px viewport measurements. No application changes.",
+  "screenshots": [
+    "artifacts/screenshots/demo-page.png",
+    "artifacts/screenshots/demo-page-mobile.png"
+  ]
 }

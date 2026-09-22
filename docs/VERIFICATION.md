@@ -12,7 +12,7 @@ Date: September 22, 2026. Checks use fictitious data. This record separates auto
 | Frontend dependency audit |0 reported vulnerabilities at build time|
 | Local Chromium |24 scenarios passed in the complete expanded suite|
 | Local WebKit |22-scenario full baseline passed; both new short-desktop scenarios also passed on a fresh database|
-| Firefox Linux CI |22 scenarios pass|
+| Firefox Linux CI |24 scenarios passed in 45.6 seconds|
 | Chromium partial receipt workflow |Pass:120 reserved/dispatched,112 accepted,8 difference, export, reload persistence, reopened need|
 | Real account onboarding |Pass:register, add pantry, stock and protected reserve, request, close incorrect request, sign out and sign in|
 | Driver invitation |Pass:separate browser account joins as driver and sees transport view without operator navigation|
@@ -25,13 +25,13 @@ Date: September 22, 2026. Checks use fictitious data. This record separates auto
 | Database backup and recovery |Live WAL backup restores login, workspace and receipt CSV; overwrite guard and corrupt-backup cleanup tested|
 | Account recovery |Session revocation and password reset tested without logging credentials|
 
-The browser definitions in `browser-tests/workflow.spec.ts` and `browser-tests/recovery.spec.ts` now contain 24 scenarios. Chromium passed the complete expanded suite locally and on the live application. WebKit passed the original 22-scenario suite and then the two added short-desktop cases locally and on the hosted application. Firefox passed the 22-scenario baseline in Linux CI; its expanded run is not yet claimed. An initial run exposed low-contrast text, which was corrected. Test-only locator mismatches were repaired to reflect explicit form labels. Final application flows pass. Accessibility evidence is in `artifacts/verification/frontend-accessibility.json`, with the core landing/overview/planner recheck files beside it.
+The browser definitions in `browser-tests/workflow.spec.ts` and `browser-tests/recovery.spec.ts` now contain 24 scenarios. Chromium passed the complete expanded suite locally and on the live application. WebKit passed the original 22-scenario suite and then the two added short-desktop cases locally and on the hosted application. Firefox passed the complete 24-scenario suite in Linux CI. An initial run exposed low-contrast text, which was corrected. Test-only locator mismatches were repaired to reflect explicit form labels. Final application flows pass. Accessibility evidence is in `artifacts/verification/frontend-accessibility.json`, with the core landing/overview/planner recheck files beside it.
 
 The dual-database run uses a real PostgreSQL 15 server in isolated temporary schemas. SQLite-specific backup and migration tests and PostgreSQL-specific durability tests skip their inapplicable backend. These are local database tests, not proof of a successful public deployment.
 
 Backend coverage includes fractional-weight precision, invalid and nonfinite inputs, stale edits, source reserves, destination capacity, restrictions, expiry, no matching storage, cold-chain checks, partial/full rejection, duplicate transitions, simultaneous reservations, active-request closure rejection, loss after pickup, late confirmation, cross-network access, role enforcement, invite replay, demo expiration, CSRF, origin checks, production configuration, and schema migrations preserving history.
 
-The completed [GitHub Actions run 35690841301](https://github.com/shi1720/Hack-Away-Hunger/actions/runs/35690841301) succeeded. This is an executed run, not merely the presence of a workflow definition.
+The completed [GitHub Actions run 35692685218](https://github.com/shi1720/Hack-Away-Hunger/actions/runs/35692685218) succeeded. Its logs record 129 backend passes with five skips, 24 Chromium scenarios in 35.3 seconds, 24 Firefox scenarios in 45.6 seconds and a successful Docker image build. This is an executed run, not merely the presence of a workflow definition.
 
 ## Verified public deployment
 
@@ -47,7 +47,11 @@ Live application: **https://pantryrelay.web.app**. Firebase Hosting serves the p
 
 The retained hosted baseline reports started September 22, 2026 at 05:32 UTC for Chromium and 05:34 UTC for WebKit. Supplemental reports cover the later sidebar correction at 1600 by 800 and 1280 by 600 pixels. They exercise the application on the live Firebase origin, including account and invitation flows, receipts and recovery behavior. Firefox was checked in Linux CI; a hosted Firefox run is not claimed. WebKit automation is not real-device Safari testing.
 
-The demonstration video has rendered to `output/Pantry-Relay-Demo.mp4`: 1920 by 1080 pixels, H.264 video and AAC audio, duration 170.633333 seconds. Evidence is `artifacts/verification/video-metadata.json`. Its captions and public walkthrough page are being finalized separately. Rendering is not publication: no YouTube upload or completed Devpost submission is claimed.
+The demonstration video has rendered to `output/Pantry-Relay-Demo.mp4`: 1920 by 1080 pixels, H.264 video and AAC audio, duration 170.633333 seconds. Evidence is `artifacts/verification/video-metadata.json`. The public walkthrough at https://pantryrelay.web.app/demo is deployed and verified in Chromium and WebKit. Both played the unmuted 1920 by 1080 video, advanced playback, sought successfully and loaded the pitch PDF with HTTP 200. The page had no horizontal overflow at 390 pixels. Evidence: `artifacts/verification/demo-media-verification.json`. One WebKit range request was canceled during seeking; seeking and playback succeeded with an audio track and no media, page, console or CSP errors. YouTube publication and final Devpost submission remain incomplete.
+
+## Submission status
+
+The Devpost overview has been saved with the project name and elevator pitch. The story, nine technology tags, three URLs and three captioned gallery images were saved, advancing to Additional info. The required supported-platform video URL is still missing. There is no separate testing-instructions field; the form offers an optional upload up to 35 MB, for which the public submission ZIP is prepared. No final submission has been made. YouTube account terms confirmation is awaiting the participant; no YouTube upload is claimed.
 
 ## Reproduce
 
