@@ -8,7 +8,7 @@ Release downloads: https://github.com/shi1720/Hack-Away-Hunger/releases/tag/v1.0
 
 The live application is deployed and verified. It supports registration for an empty network and separate fictional demo workspaces. Hosted Chromium passed the complete 24-scenario suite. Hosted WebKit passed its 22-scenario baseline plus both added short-desktop regressions. A signed-in session with a reserved 120-pound transfer survived a forced Cloud Run revision replacement. See `docs/VERIFICATION.md` for the evidence and its limits.
 
-The 1080p demonstration video is rendered at `output/Pantry-Relay-Demo.mp4`. The public walkthrough at https://pantryrelay.web.app/demo is deployed and verified with unmuted playback in Chromium and WebKit, a working pitch PDF and a 390-pixel layout without horizontal overflow. The video is not yet published on YouTube. Devpost has saved the overview, branded thumbnail, story, nine technology tags, three URLs, three captioned gallery images and the 9.73 MB judge ZIP. Saving the attachment advanced to the finalization page with 3/5 steps complete. Its required supported-platform video URL is still missing; no final submission has been made. The participant has confirmed publication and submission. YouTube now requires a fresh Google sign-in before the upload can continue. The existing passkey Touch ID prompt in Safari is awaiting the participant.
+The 1080p demonstration video is rendered at `output/Pantry-Relay-Demo.mp4` and published publicly on YouTube: https://www.youtube.com/watch?v=dSc6ToJ2z6Y. The public walkthrough at https://pantryrelay.web.app/demo remains available with the video and pitch PDF. Devpost confirmed **“Project submitted!”** on September 22, 2026: https://devpost.com/software/pantry-relay. The submission includes the overview, branded thumbnail, story, nine technology tags, three URLs, three captioned gallery images, supported video link and judge ZIP (`Pantry-Relay-Submission-Kit-Final.zip` on Devpost). Publication and submission proceeded after the participant confirmed them and completed Google authentication.
 
 ## Run and rehearse
 
@@ -30,13 +30,13 @@ Run `./scripts/start.sh` and open http://localhost:8010. Enter a fresh demo. Use
 
 ## Personal actions that software cannot substitute for
 
-1. **Confirm eligibility and proposal acceptance.** The overview says US-only and ages 13+. The page listed September 17 for proposals, which is before this build began. Obtain organizer confirmation if needed. No eligibility assertion has been submitted on your behalf.
+1. **Confirm eligibility and proposal acceptance.** The overview says US-only and ages 13+. The page listed September 17 for proposals, which is before this build began. Obtain organizer confirmation if needed. Devpost submission is complete; platform acceptance does not independently establish prize eligibility.
 2. **Have an eligible human team of 2-6 people.** The rules allow joining individually and help with team formation. Codex is not a human teammate.
 3. **Arrange the in-person presentation on October 10 in Johnston, Iowa.** The official rules require in-person presentation for prize eligibility.
 
 ## Publishing checks
 
-Review the rendered demonstration video, its synthetic narration disclosure and the actual submission fields. The rendered video is 170.633333 seconds, approximately 2 minutes 51 seconds; inspect its final captions before uploading. The inspected Devpost form requires a supported-platform video URL and offers an optional upload up to 35 MB. It does not have a separate testing-instructions field; the ZIP includes those instructions. Do not describe the final submission or YouTube upload as complete until the corresponding platform confirms it.
+Review the rendered demonstration video, its synthetic narration disclosure and the actual submission fields. The rendered video is 170.633333 seconds, approximately 2 minutes 51 seconds; inspect its final captions before uploading. The inspected Devpost form requires a supported-platform video URL and offers an optional upload up to 35 MB. It does not have a separate testing-instructions field; the ZIP includes those instructions. Both platforms have now confirmed publication and submission. The saved verification record is `artifacts/verification/publication.json`.
 
 The verified Firebase URL is ready for the submission's live-app field. The cloud stack uses Cloud Run and PostgreSQL on Cloud SQL; local self-hosting can use SQLite. Daily backups retain seven backups, and an on-demand Cloud SQL backup completed successfully. A restore drill remains a separate real-operation check. Managed cloud hosting has operating costs even when temporary credits are available. Keep fictional demo records separate from registered networks and real operations.
 

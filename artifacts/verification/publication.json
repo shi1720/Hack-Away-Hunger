@@ -1,0 +1,51 @@
+{
+  "project": "Pantry Relay",
+  "checked_at": "2026-09-22T06:44:00.198664+00:00",
+  "devpost": {
+    "url": "https://devpost.com/software/pantry-relay",
+    "submission_id": 1192698,
+    "status": "submitted",
+    "confirmation": "Project submitted! Continue to edit your project until the hackathon deadline: October 08, 2026 at 11:45pm EDT.",
+    "attachment_verified": "Pantry-Relay-Submission-Kit-Final.zip",
+    "video_url": "https://www.youtube.com/watch?v=dSc6ToJ2z6Y",
+    "completed_steps": "5/5",
+    "attachment_sha256": "0abbea35f8d4419ef3b7bdf46f38dad2da12e0df35f0da15f9de1870e03ef6a3",
+    "attachment_bytes": 9727930
+  },
+  "youtube": {
+    "url": "https://www.youtube.com/watch?v=dSc6ToJ2z6Y",
+    "video_id": "dSc6ToJ2z6Y",
+    "visibility": "public",
+    "confirmation": "Video published",
+    "checks": "Checks complete. No issues found.",
+    "thumbnail": "artifacts/brand/youtube-thumbnail.png",
+    "synthetic_content_disclosed": true,
+    "burned_in_captions": true,
+    "manual_subtitle_publication": "published",
+    "playback": {
+      "observed_times_seconds": [
+        15.466827,
+        52.123683
+      ],
+      "duration_seconds": 170.681,
+      "ready_state": 4,
+      "media_error": null,
+      "observed_rendition": [
+        640,
+        360
+      ]
+    },
+    "manual_subtitle_source": "output/Pantry-Relay-Captions.srt",
+    "manual_subtitle_confirmation": "After importing the timed SRT and clicking Publish, public player settings show Subtitles/CC English rather than English (auto-generated).",
+    "hd_rendition": {
+      "width": 1920,
+      "height": 1080,
+      "ready_state": 4,
+      "media_error": null,
+      "time_seconds": 96.534395,
+      "paused": false
+    }
+  },
+  "method": "Authenticated browser UI publication and submission confirmations; supported browser read-only DOM inspection of the visible YouTube video element. No credentials or authentication tokens retained.",
+  "eligibility_note": "Submission confirmation is not independent verification of human-team, location or presentation eligibility."
+}

@@ -1,6 +1,6 @@
 # YouTube metadata
 
-Publication status: 1080p video rendered and available on the verified public walkthrough at https://pantryrelay.web.app/demo. The participant confirmed publication on September 22. The MP4 was selected in YouTube Studio, which then required a fresh Google sign-in. Upload and publication are not complete; the existing passkey Touch ID prompt in Safari is awaiting the participant. Devpost details are saved, but its supported-platform video URL remains missing and final submission is incomplete.
+Publication status: **Published publicly** at https://www.youtube.com/watch?v=dSc6ToJ2z6Y. YouTube confirmed “Video published” and both copyright and Community Guidelines checks completed with no issues. The video has a custom thumbnail, chapters, synthetic-narration disclosure, burned-in captions and a published manually timed English subtitle track. The public player offers 1080p HD. Devpost confirmed “Project submitted!” at https://devpost.com/software/pantry-relay on September 22, 2026.
 
 ## Title
 

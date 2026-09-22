@@ -38,6 +38,8 @@ Event: Hack Away Hunger 2026
 
 Live application: https://pantryrelay.web.app
 Video walkthrough and pitch: https://pantryrelay.web.app/demo
+Public YouTube demo: https://www.youtube.com/watch?v=dSc6ToJ2z6Y
+Submitted project: https://devpost.com/software/pantry-relay
 Source code: https://github.com/shi1720/Hack-Away-Hunger
 
 Pantry Relay helps an approved pantry network fill upcoming category gaps with

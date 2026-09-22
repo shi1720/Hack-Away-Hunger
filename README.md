@@ -2,7 +2,7 @@
 
 **Make the food already here go further.**
 
-[Open the live app](https://pantryrelay.web.app) · [Watch the captioned demo](https://pantryrelay.web.app/demo) · [Judge walkthrough](submission/TESTING-INSTRUCTIONS.md) · [Pitch deck](output/Pantry-Relay-Pitch.pdf)
+[Open the live app](https://pantryrelay.web.app) · [YouTube demo](https://www.youtube.com/watch?v=dSc6ToJ2z6Y) · [Submitted Devpost project](https://devpost.com/software/pantry-relay) · [Judge walkthrough](submission/TESTING-INSTRUCTIONS.md) · [Pitch deck](output/Pantry-Relay-Pitch.pdf)
 
 ![Pantry Relay dashboard with fictional sample data](artifacts/brand/devpost-cover.png)
 
