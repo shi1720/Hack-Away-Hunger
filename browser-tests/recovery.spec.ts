@@ -518,3 +518,42 @@ test("signing out from the mobile drawer restores page scrolling and clears navi
     "hidden",
   );
 });
+
+for (const viewport of [
+  { width: 1600, height: 800 },
+  { width: 1280, height: 600 },
+]) {
+  test(`desktop sidebar remains reachable after recording scroll sequence at ${viewport.width}x${viewport.height}`, async ({
+    page,
+  }) => {
+    await page.setViewportSize(viewport);
+    await demo(page);
+    const transfer = await reserveFixture(page);
+    await advanceFixture(page, transfer, "arrived");
+    await mutate(page, `/transfers/${transfer.id}/receive`, {
+      received_lb: 112,
+      temperature_f: null,
+      receiver_name: "Recording fixture receiver",
+      exception_reason: "8 lb damaged in transit, sample scenario.",
+    });
+    await refresh(page);
+    await nav(page, "Pantries & needs");
+    await page.locator(".service-table").scrollIntoViewIfNeeded();
+    await nav(page, "Inventory");
+    await page
+      .getByRole("row")
+      .filter({ hasText: "Harvest apples & carrots" })
+      .filter({ hasText: "112 lb" })
+      .last()
+      .scrollIntoViewIfNeeded();
+    await nav(page, "Impact & reports");
+    await expect(page.locator(".impact-hero")).toContainText("112");
+    const signOut = page.getByRole("button", { name: "Sign out", exact: true });
+    await signOut.scrollIntoViewIfNeeded();
+    await expect(signOut).toBeInViewport({ ratio: 1 });
+    await signOut.click();
+    await expect(
+      page.getByRole("button", { name: "Start a network", exact: true }),
+    ).toBeVisible();
+  });
+}

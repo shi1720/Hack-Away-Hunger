@@ -5,7 +5,9 @@ Event: **Hack Away Hunger 2026**
 Repository: https://github.com/shi1720/Hack-Away-Hunger
 Live app: https://pantryrelay.web.app
 
-The public Firebase address has been allocated. Final deployment verification is pending and must be recorded before the link is presented as ready.
+The live application is deployed and verified. It supports registration for an empty network and separate fictional demo workspaces. Hosted Chromium passed the complete 24-scenario suite. Hosted WebKit passed its 22-scenario baseline plus both added short-desktop regressions. A signed-in session with a reserved 120-pound transfer survived a forced Cloud Run revision replacement. See `docs/VERIFICATION.md` for the evidence and its limits.
+
+The 1080p demonstration video is rendered at `output/Pantry-Relay-Demo.mp4`. The public walkthrough target is https://pantryrelay.web.app/demo; deployment verification for that page is pending. The video is not yet published on YouTube and Devpost submission is not yet complete. Prepared assets and successful application tests are not publication confirmations.
 
 ## Run and rehearse
 
@@ -32,9 +34,9 @@ Run `./scripts/start.sh` and open http://localhost:8010. Enter a fresh demo. Use
 
 ## Publishing checks
 
-Review the completed demonstration video, its synthetic narration disclosure and the actual submission fields. The authenticated Devpost form determines required fields, video duration and visibility. Do not describe the submission or upload as complete until the corresponding platform confirms it.
+Review the rendered demonstration video, its synthetic narration disclosure and the actual submission fields. The rendered video is 170.633333 seconds, approximately 2 minutes 51 seconds; inspect its final captions before uploading. The authenticated Devpost form determines required fields, video duration and visibility. Do not describe the submission or upload as complete until the corresponding platform confirms it.
 
-Verify the Firebase URL against the deployed application before publishing. The cloud stack uses Cloud Run and PostgreSQL on Cloud SQL; local self-hosting can use SQLite. Managed cloud hosting has operating costs even when temporary credits are available. Keep fictional demo records separate from registered networks and real operations.
+The verified Firebase URL is ready for the submission's live-app field. The cloud stack uses Cloud Run and PostgreSQL on Cloud SQL; local self-hosting can use SQLite. Daily backups retain seven backups, and an on-demand Cloud SQL backup completed successfully. A restore drill remains a separate real-operation check. Managed cloud hosting has operating costs even when temporary credits are available. Keep fictional demo records separate from registered networks and real operations.
 
 Official deadline: **October 8, 2026 at 11:45 pm EDT**, equivalent to **October 9 at 9:15 am IST**. Sources: https://hack-away-hunger.devpost.com/rules and https://hack-away-hunger.devpost.com/details/dates. Recheck for organizer updates before submission.
 

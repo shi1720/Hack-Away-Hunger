@@ -2,6 +2,10 @@
 
 **Make the food already here go further.**
 
+[Open the live app](https://pantryrelay.web.app) · [Watch the captioned demo](https://pantryrelay.web.app/demo) · [Judge walkthrough](submission/TESTING-INSTRUCTIONS.md) · [Pitch deck](output/Pantry-Relay-Pitch.pdf)
+
+![Pantry Relay dashboard with fictional sample data](artifacts/brand/devpost-cover.png)
+
 Pantry Relay helps a trusted network of food pantries fill upcoming food-category gaps using nearby surplus. A coordinator can protect a pantry's own reserve, find a feasible transfer, record the handoff, and report the pounds the receiving pantry actually accepted.
 
 Built for **Hack Away Hunger 2026**. Project lead: **Shivam Gupta**. AI-assisted development and research are documented in [CREDITS.md](CREDITS.md).
@@ -55,7 +59,7 @@ The app deliberately reports **received pounds**, not unverified meals, people f
 5. Receive fewer pounds than dispatched and explain the difference.
 6. Open **Impact & reports**. Only accepted pounds count; the remaining need and audit evidence stay visible.
 
-Full narration and shot list: [submission/DEMO-SCRIPT.md](submission/DEMO-SCRIPT.md).
+Narrated demonstration source and shot list: [submission/VIDEO-NARRATION.md](submission/VIDEO-NARRATION.md). The finished video includes captions and clearly labels fictional records and synthetic narration.
 
 ## Quality and operations
 
@@ -73,7 +77,8 @@ The Firebase deployment uses Cloud Run and durable Cloud SQL PostgreSQL. Self-ho
 
 - [Start here](submission/START-HERE.md): deliverables and participant-only actions
 - [Devpost text](submission/DEVPOST.md)
-- [Verbatim demo script](submission/DEMO-SCRIPT.md)
+- [Verbatim demo script](submission/VIDEO-NARRATION.md)
+- [Editable PowerPoint](output/Pantry-Relay-Pitch.pptx), [pitch PDF](output/Pantry-Relay-Pitch.pdf), and [executive brief](output/Pantry-Relay-Brief.pdf)
 - [Business model](docs/BUSINESS-MODEL.md) and [pilot plan](docs/PILOT-PLAN.md)
 - [Architecture](docs/ARCHITECTURE.md), [operating guide](docs/OPERATING-GUIDE.md), and [deployment](docs/DEPLOYMENT.md)
 - [Evidence and competitors](research/research.md)

@@ -961,6 +961,8 @@ small {
   display: flex;
   flex-direction: column;
   z-index: 30;
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 .sidebar-logo {
   padding: 0 10px 29px;
@@ -5211,4 +5213,14 @@ td small,
 }
 .search-field {
   min-width: 0;
+}
+
+/* Preserve primary navigation and account controls on shorter desktop displays. */
+@media (min-width: 681px) and (max-height: 850px) {
+  .sidebar-purpose {
+    display: none;
+  }
+  .sidebar-bottom {
+    padding-top: 18px;
+  }
 }

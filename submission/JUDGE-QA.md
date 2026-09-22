@@ -128,9 +128,9 @@ An included operator command supports interactive password resets and session re
 
 ### How was it tested?
 
-“The backend implementer reports 120 passing tests across SQLite and PostgreSQL, with five storage-specific skips. They cover stock and capacity accounting, state transitions, partial and rejected receipts, concurrent reservations, network isolation and permissions. An independent review reproduced and rechecked accounting edge cases with isolated databases. The reviewed local axe scan reports zero automatically detectable WCAG 2.1 A/AA violations across 24 views and states, and the 390-pixel mobile layout was checked for horizontal overflow.”
+“The backend implementer reports 129 passing tests across SQLite and PostgreSQL, with five storage-specific skips. They cover stock and capacity accounting, state transitions, partial and rejected receipts, concurrent reservations, network isolation and permissions. An independent review reproduced and rechecked accounting edge cases with isolated databases. The complete 24-scenario Chromium suite passed locally and on the live application. WebKit passed the 22-scenario baseline plus both added short-desktop regressions locally and on the live application. Firefox passed the 22-scenario baseline in Linux CI. WebKit automation is not a real-device Safari test.”
 
-“Browser checks also exercised a partial receipt, CSV download and persistence after reload. These are engineering checks, not a security audit, accessibility certification or a field usability study.” Use the final verification document for the complete, current scenario results.
+“The reviewed local axe scan reports zero automatically detectable WCAG 2.1 A/AA violations across 24 views and states. A signed-in session and a reserved 120-pound transfer survived a forced cloud application revision replacement. Daily Cloud SQL backups are configured and an on-demand backup succeeded, but that does not replace a restore drill. These are engineering checks, not a security audit, accessibility certification or a field usability study.” Use the final verification document for the complete, current results and evidence.
 
 ### What did you build, and how did AI contribute?
 

@@ -1,0 +1,6 @@
+{
+  "url": "https://pantryrelay.web.app",
+  "check": "Authenticated session and reserved transfer survived Cloud Run revision replacement",
+  "passed": true,
+  "transfer_quantity_lb": 120.0
+}

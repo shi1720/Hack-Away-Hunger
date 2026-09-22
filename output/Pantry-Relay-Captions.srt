@@ -1,0 +1,225 @@
+1
+00:00:00,000 --> 00:00:02,510
+Picture a food pantry opening tomorrow.
+
+2
+00:00:03,080 --> 00:00:05,830
+There is rice on the shelf, but hardly any
+produce.
+
+3
+00:00:06,600 --> 00:00:08,810
+A nearby pantry has produce it could
+share.
+
+4
+00:00:09,600 --> 00:00:12,340
+Someone still has to connect those two
+facts, arrange
+
+5
+00:00:12,340 --> 00:00:15,050
+the handoff, and find out what actually
+arrived.
+
+6
+00:00:16,240 --> 00:00:21,050
+This is Pantry Relay, created by Shivam
+Gupta with AI assistance.
+
+7
+00:00:21,600 --> 00:00:23,880
+It helps an approved pantry network fill
+upcoming
+
+8
+00:00:23,880 --> 00:00:26,250
+food gaps with what its neighbors can
+spare.
+
+9
+00:00:26,920 --> 00:00:29,180
+These are fictional pantries, and every
+
+10
+00:00:29,180 --> 00:00:31,570
+number in this demonstration is sample
+data.
+
+11
+00:00:32,200 --> 00:00:35,910
+Cedar Grove has produce above the stock it
+needs for its own visitors.
+
+12
+00:00:36,580 --> 00:00:38,630
+Eastside needs produce for its next
+service.
+
+13
+00:00:39,300 --> 00:00:41,780
+In the Relay Planner, I can see a proposed
+transfer
+
+14
+00:00:41,780 --> 00:00:45,690
+of 120 pounds, with an explanation of why
+it fits.
+
+15
+00:00:46,540 --> 00:00:50,410
+The Planner checks reserves, restrictions,
+storage,
+
+16
+00:00:50,840 --> 00:00:54,270
+receiving space, use by cutoffs, and
+vehicle capacity.
+
+17
+00:00:54,720 --> 00:00:59,530
+Distances are straight line estimates, so
+a person still confirms the actual trip.
+
+18
+00:00:59,820 --> 00:01:02,690
+When I reserve the transfer, that stock is
+committed.
+
+19
+00:01:03,320 --> 00:01:06,190
+Another coordinator cannot promise those
+same pounds again.
+
+20
+00:01:07,160 --> 00:01:11,550
+Next comes the receiving pantry's
+acceptance, pickup, and arrival.
+
+21
+00:01:12,200 --> 00:01:14,500
+The app records the handoffs and requires
+
+22
+00:01:14,500 --> 00:01:16,610
+temperature checks when the food needs
+them.
+
+23
+00:01:17,140 --> 00:01:19,270
+A driver has a simpler delivery view.
+
+24
+00:01:19,960 --> 00:01:23,210
+Coordinators handle acceptance and the
+final receiving record.
+
+25
+00:01:23,780 --> 00:01:26,090
+Here is the part that matters.
+
+26
+00:01:26,400 --> 00:01:30,370
+We sent 120 pounds, but 8 pounds arrived
+damaged.
+
+27
+00:01:31,080 --> 00:01:34,850
+I enter 112 pounds accepted and explain
+the difference.
+
+28
+00:01:35,760 --> 00:01:37,410
+The report counts 112.
+
+29
+00:01:37,940 --> 00:01:41,530
+The missing 8 remain visible against the
+upcoming need.
+
+30
+00:01:42,360 --> 00:01:46,470
+The receiving pantry's food is protected
+from being offered straight back out.
+
+31
+00:01:46,800 --> 00:01:49,950
+A failed delivery counts as no food
+received.
+
+32
+00:01:50,740 --> 00:01:53,060
+A receipt confirmed after the service
+deadline
+
+33
+00:01:53,060 --> 00:01:55,510
+gets no credit for that missed service.
+
+34
+00:01:56,180 --> 00:01:59,950
+The records follow what happened,
+including the inconvenient parts.
+
+35
+00:02:00,160 --> 00:02:04,280
+This is a working application with
+accounts, separate
+
+36
+00:02:04,280 --> 00:02:07,450
+networks, permissions, and persistent
+records.
+
+37
+00:02:07,660 --> 00:02:11,380
+We test stock protection, permissions, and
+the complete
+
+38
+00:02:11,380 --> 00:02:14,350
+handoff in automated back end and browser
+checks.
+
+39
+00:02:14,720 --> 00:02:17,650
+It runs without paid AI or mapping APIs.
+
+40
+00:02:18,260 --> 00:02:21,750
+The next question is whether it makes a
+coordinator's day easier.
+
+41
+00:02:22,760 --> 00:02:28,290
+Our proposed price is $149 per network per
+month for up to 10 sites.
+
+42
+00:02:29,000 --> 00:02:30,450
+That price is a hypothesis.
+
+43
+00:02:31,140 --> 00:02:34,800
+We want to test it with one coordinator
+and three pantries, measuring
+
+44
+00:02:34,800 --> 00:02:39,050
+food gaps, staff time, transport effort,
+and accepted pounds.
+
+45
+00:02:39,800 --> 00:02:43,120
+Pantry Relay makes food already in the
+community easier
+
+46
+00:02:43,120 --> 00:02:45,950
+to share, with a record of what reached
+the next pantry.
+
+47
+00:02:46,480 --> 00:02:49,850
+Our goal is a useful service that
+operators choose to keep.

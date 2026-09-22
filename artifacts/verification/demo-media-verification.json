@@ -1,0 +1,155 @@
+{
+  "product": "Pantry Relay",
+  "url": "https://pantryrelay.web.app/demo",
+  "checked_at": "2026-09-22T05:55:57.941Z",
+  "browsers": {
+    "chromium": {
+      "status": "passed",
+      "metadata": {
+        "currentSrc": "https://pantryrelay.web.app/Pantry-Relay-Demo.mp4",
+        "duration": 170.633333,
+        "videoWidth": 1920,
+        "videoHeight": 1080,
+        "currentTime": 0,
+        "paused": true,
+        "muted": false,
+        "volume": 1,
+        "readyState": 4,
+        "networkState": 1,
+        "error": null,
+        "decodedVideoFrames": 0,
+        "decodedAudioBytes": 0,
+        "audioTrackCount": null
+      },
+      "playback": {
+        "currentSrc": "https://pantryrelay.web.app/Pantry-Relay-Demo.mp4",
+        "duration": 170.633333,
+        "videoWidth": 1920,
+        "videoHeight": 1080,
+        "currentTime": 2.019672,
+        "paused": false,
+        "muted": false,
+        "volume": 1,
+        "readyState": 4,
+        "networkState": 1,
+        "error": null,
+        "decodedVideoFrames": 66,
+        "decodedAudioBytes": 33331,
+        "audioTrackCount": null
+      },
+      "progressed": {
+        "currentSrc": "https://pantryrelay.web.app/Pantry-Relay-Demo.mp4",
+        "duration": 170.633333,
+        "videoWidth": 1920,
+        "videoHeight": 1080,
+        "currentTime": 3.538643,
+        "paused": false,
+        "muted": false,
+        "volume": 1,
+        "readyState": 4,
+        "networkState": 1,
+        "error": null,
+        "decodedVideoFrames": 112,
+        "decodedAudioBytes": 52384,
+        "audioTrackCount": null
+      },
+      "timeProgressSeconds": 1.518971,
+      "pdfChecks": [
+        {
+          "url": "https://pantryrelay.web.app/Pantry-Relay-Pitch.pdf",
+          "status": 200,
+          "contentType": "application/pdf",
+          "bytes": 1166092,
+          "signature": "%PDF-"
+        }
+      ],
+      "mobile": {
+        "viewportWidth": 390,
+        "pageWidth": 390,
+        "horizontalOverflow": false,
+        "videoWidth": 338
+      },
+      "pageErrors": [],
+      "consoleErrors": [],
+      "cspViolations": [],
+      "failedRequests": []
+    },
+    "webkit": {
+      "status": "passed",
+      "metadata": {
+        "currentSrc": "https://pantryrelay.web.app/Pantry-Relay-Demo.mp4",
+        "duration": 170.63333333333333,
+        "videoWidth": 1920,
+        "videoHeight": 1080,
+        "currentTime": 0,
+        "paused": true,
+        "muted": false,
+        "volume": 1,
+        "readyState": 1,
+        "networkState": 1,
+        "error": null,
+        "decodedVideoFrames": 0,
+        "decodedAudioBytes": null,
+        "audioTrackCount": 0
+      },
+      "playback": {
+        "currentSrc": "https://pantryrelay.web.app/Pantry-Relay-Demo.mp4",
+        "duration": 170.63333333333333,
+        "videoWidth": 1920,
+        "videoHeight": 1080,
+        "currentTime": 2.018600790682342,
+        "paused": false,
+        "muted": false,
+        "volume": 1,
+        "readyState": 4,
+        "networkState": 1,
+        "error": null,
+        "decodedVideoFrames": 56,
+        "decodedAudioBytes": null,
+        "audioTrackCount": 1
+      },
+      "progressed": {
+        "currentSrc": "https://pantryrelay.web.app/Pantry-Relay-Demo.mp4",
+        "duration": 170.63333333333333,
+        "videoWidth": 1920,
+        "videoHeight": 1080,
+        "currentTime": 3.5350549996445957,
+        "paused": false,
+        "muted": false,
+        "volume": 1,
+        "readyState": 4,
+        "networkState": 1,
+        "error": null,
+        "decodedVideoFrames": 56,
+        "decodedAudioBytes": null,
+        "audioTrackCount": 1
+      },
+      "timeProgressSeconds": 1.5164542089622537,
+      "pdfChecks": [
+        {
+          "url": "https://pantryrelay.web.app/Pantry-Relay-Pitch.pdf",
+          "status": 200,
+          "contentType": "application/pdf",
+          "bytes": 1166092,
+          "signature": "%PDF-"
+        }
+      ],
+      "mobile": {
+        "viewportWidth": 390,
+        "pageWidth": 390,
+        "horizontalOverflow": false,
+        "videoWidth": 338
+      },
+      "pageErrors": [],
+      "consoleErrors": [],
+      "cspViolations": [],
+      "failedRequests": [
+        {
+          "url": "https://pantryrelay.web.app/Pantry-Relay-Demo.mp4",
+          "error": "cancelled"
+        }
+      ]
+    }
+  },
+  "status": "passed"
+}

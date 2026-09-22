@@ -1,4 +1,4 @@
-# Pantry Relay — product and market research
+# Pantry Relay: product and market research
 
 Prepared for Shivam Gupta's Hack Away Hunger project. Research date: September 22, 2026. Public primary sources only; no organizations were contacted. Product, pricing, and pilot proposals below are hypotheses, not customer validation.
 
@@ -120,15 +120,15 @@ A distance-only score could systematically favor urban sites. A reasonable pilot
 
 No outreach has happened. These are proposed steps and success criteria. `docs/PILOT-PLAN.md` contains the canonical operating plan.
 
-**Before the pilot — Understand the existing workflow.** Recruit one willing network coordinator and three nearby pantries. Conduct five short interviews about recent shortages or excess lots, their current workarounds, restriction rules and cost of moving food. Observe an actual service and inventory update with permission. Include limited-staff or rural context where practical. Confirm transfer permissions, operating procedures, account recovery and deployment readiness.
+**Before the pilot: Understand the existing workflow.** Recruit one willing network coordinator and three nearby pantries. Conduct five short interviews about recent shortages or excess lots, their current workarounds, restriction rules and cost of moving food. Observe an actual service and inventory update with permission. Include limited-staff or rural context where practical. Confirm transfer permissions, operating procedures, account recovery and deployment readiness.
 
-**Week 1 — Establish baseline.** Record category gaps, surplus, discarded food, existing transfers, coordinating time and actual delivery cost using current tools. Do not change delivery decisions yet. Agree on the stock eligible for transfer and collect no household-level information.
+**Week 1: Establish baseline.** Record category gaps, surplus, discarded food, existing transfers, coordinating time and actual delivery cost using current tools. Do not change delivery decisions yet. Agree on the stock eligible for transfer and collect no household-level information.
 
-**Weeks 2–5 — Supervised pilot.** Run Pantry Relay in one network. Every proposed transfer requires human confirmation. Use existing drivers. Review failed matches and stale data daily. Keep phone/spreadsheet fallback and a named coordinator. Track why suggestions were rejected.
+**Weeks 2–5: Supervised pilot.** Run Pantry Relay in one network. Every proposed transfer requires human confirmation. Use existing drivers. Review failed matches and stale data daily. Keep phone/spreadsheet fallback and a named coordinator. Track why suggestions were rejected.
 
-**Throughout the pilot — Usability and reliability.** Observe whether a volunteer can enter a need/lot and complete a receipt without coaching. Test cancellations, partial receipts and connection failures; offline synchronization is not implemented. Reconcile a sample of physical receipts against the ledger. Revise the workflow rather than add features to hide friction.
+**Throughout the pilot: Usability and reliability.** Observe whether a volunteer can enter a need/lot and complete a receipt without coaching. Test cancellations, partial receipts and connection failures; offline synchronization is not implemented. Reconcile a sample of physical receipts against the ledger. Revise the workflow rather than add features to hide friction.
 
-**Week 6 — Decision.** Compare fulfillment, time and transport cost with baseline. Ask the actual budget holder for a paid continuation decision at an explicit price. Publish findings with permission, including null or negative results.
+**Week 6: Decision.** Compare fulfillment, time and transport cost with baseline. Ask the actual budget holder for a paid continuation decision at an explicit price. Publish findings with permission, including null or negative results.
 
 Suggested pilot gates to agree with operators (targets, not promises): at least 20% reduction in recorded category gaps, at least 25% reduction in coordination time, at least 95% receipt completeness, three consistently participating sites, review of every exception and a credible paid-continuation decision or documented rejection. Report actual received pounds without imposing an arbitrary pounds quota. A small pilot cannot establish a statewide causal reduction in food insecurity.
 

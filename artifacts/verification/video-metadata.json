@@ -1,0 +1,33 @@
+{
+  "programs": [],
+  "stream_groups": [],
+  "streams": [
+    {
+      "codec_name": "h264",
+      "codec_type": "video",
+      "width": 1920,
+      "height": 1080,
+      "r_frame_rate": "30/1"
+    },
+    {
+      "codec_name": "aac",
+      "codec_type": "audio",
+      "sample_rate": "24000",
+      "r_frame_rate": "0/0"
+    }
+  ],
+  "format": {
+    "duration": "170.633333",
+    "size": "8636276"
+  },
+  "sha256": "b822146457f92778b0d520d412faf8c38cdd53f46f40f8319d71490bb3bc4017",
+  "caption_cues": 47,
+  "audio_review": {
+    "mean_volume_db": -17.1,
+    "maximum_volume_db": -1.5,
+    "synthetic_voice": "cedar",
+    "narration_source": "submission/VIDEO-NARRATION.md"
+  },
+  "visual_review": "Opening, match, acceptance, partial receipt, remaining need, stock protection, onboarding, pricing and closing frames inspected. Captions use a dedicated strip and the synthetic-narration disclosure does not cover application controls.",
+  "browser_recording_errors": []
+}

@@ -6,7 +6,7 @@ Project lead: Shivam Gupta. These instructions cover the quick judge walkthrough
 **Repository:** https://github.com/shi1720/Hack-Away-Hunger  
 **Local application:** http://localhost:8010
 
-The Firebase address has been allocated; deployment verification is pending. Hosted results must be checked separately from the completed local tests listed below.
+The Firebase application is deployed and verified, with account registration enabled. Hosted Chromium passed the full 24-scenario suite. Hosted WebKit passed the 22-scenario baseline and both added short-desktop regression cases. Exact run evidence is tracked in the final verification record. No shared test password is needed: start a fictional demo or create your own empty test network.
 
 ## 1. The five-minute judge walkthrough
 
@@ -33,7 +33,7 @@ Demo sessions are disposable. Browser refresh persistence is not a promise that 
 
 ## 2. Test a real empty network
 
-Choose **Start a network**. If the public host is configured for sample demos only and does not offer registration, run the complete local application using section 5. Do not try to invite people into a disposable sample network.
+Choose **Start a network** on the live application or the complete local application from section 5. Registration is enabled on the deployed Firebase app. Do not try to invite people into a disposable sample network.
 
 1. Enter your display name, a fictional network name, a unique test email address and a dedicated password of at least 12 characters. Select **Create network**. No email is sent by the application.
 2. Verify that the network starts empty rather than inheriting sample records.
@@ -111,11 +111,13 @@ npm run build
 cd ..
 ```
 
-For the browser tests, stop any server on port 8010 first. The helper starts its own instance against a temporary test database, installs Chromium and runs the browser scenarios:
+The browser-test helper starts its own instance on an available local port against a temporary test database, installs Chromium and runs the browser scenarios:
 
 ```sh
 ./scripts/test_browser.sh
 ```
+
+To select WebKit, run `PANTRY_BROWSER=webkit ./scripts/test_browser.sh`. Firefox is selected with `PANTRY_BROWSER=firefox` and has been verified in the Linux CI environment.
 
 Alternatively, with a local application already running, run the browser tests against it. This creates fictional QA accounts and records in that instance, so use only an instance intended for testing:
 
@@ -126,7 +128,7 @@ npx playwright install chromium
 npm test
 ```
 
-The test definition is `browser-tests/workflow.spec.ts`; the browser configuration is `browser-tests/playwright.config.ts`. A failed run retains traces and screenshots. Open the generated HTML report with `npx playwright show-report` from the browser-tests directory. The hosted target can be selected with `BASE_URL`, but registration-dependent tests need a host that permits real empty test networks.
+The test definitions are `browser-tests/workflow.spec.ts` and `browser-tests/recovery.spec.ts`; the browser configuration is `browser-tests/playwright.config.ts`. A failed run retains traces and screenshots. Open the generated HTML report with `npx playwright show-report` from the browser-tests directory. The hosted target can be selected with `BASE_URL=https://pantryrelay.web.app`; use an authorized test target because these tests create fictional QA accounts and records. Use `PANTRY_BROWSER` to select Chromium, WebKit or Firefox and install the corresponding engine first.
 
 ## 7. Operator recovery and backup checks
 
@@ -158,8 +160,8 @@ This backup command is for SQLite. Use a new backup filename because overwrite i
 
 ## Recorded results and limits
 
-The latest reported backend verification is **120 passing tests across SQLite and PostgreSQL**, with **five storage-specific skips**. Ruff and the TypeScript production build passed. Completed local Chromium checks cover the receipt flow, empty-network onboarding, mobile/dialog behavior, core accessibility, driver invitation and expired-session recovery. A rendered axe audit found zero WCAG 2.1 A/AA violations across **24 views and states**. A 390-pixel viewport had no horizontal page overflow. Further browser scenarios and hosted checks are being verified separately; use the final record for their exact count.
+The latest reported backend verification is **129 passing tests across SQLite and PostgreSQL**, with **five storage-specific skips**. Ruff and the TypeScript production build passed. Chromium passed the **complete 24-scenario suite locally and on the hosted app**. WebKit passed the **22-scenario baseline plus both new short-desktop cases**, locally and on the hosted app. These are separate WebKit runs, not a claimed single 24-case run. Firefox passed the **22-scenario baseline in Linux CI**; its expanded run is not yet claimed. A rendered axe audit found zero WCAG 2.1 A/AA violations across **24 views and states**. The checked 320-pixel and 390-pixel layouts had no horizontal page overflow.
 
-`docs/VERIFICATION.md` is the canonical results record. `artifacts/verification/frontend-accessibility.json` contains the 24-state accessibility findings. Local success does not establish hosted success. Use the final deployment verification record for the exact live URL, test date and hosted checks.
+`docs/VERIFICATION.md` is the canonical results record. `artifacts/verification/frontend-accessibility.json` contains the 24-state accessibility findings. Hosted evidence is in `artifacts/verification/frontend-cross-browser.json` for the complete expanded Chromium suite, `hosted-webkit.json` for its 22-case baseline and `hosted-webkit-short-desktop.json` for the two added cases. The earlier Chromium baseline is retained in `hosted-chromium.json`. `hosted-restart.json` records that an authenticated session and reserved 120-pound transfer survived forced Cloud Run revision replacement. GitHub Actions run `35690841301` succeeded. Cloud SQL has daily backups with seven retained copies, and on-demand backup `1790055203051` succeeded; a cloud restore drill remains a separate check.
 
-No real pantry trial, paid-customer validation, independent penetration test, sustained load test or food-safety certification has occurred. The browser suite here uses Chromium; Safari and Firefox are not claimed as tested. Real transport, approval and food-handling decisions remain with the participating network.
+No real pantry trial, paid-customer validation, independent penetration test, sustained load test or food-safety certification has occurred. Browser coverage includes Chromium and WebKit locally and on the hosted application, and Firefox in Linux CI. WebKit is not a claim of physical Safari-device testing; a hosted Firefox run is not claimed. Real transport, approval and food-handling decisions remain with the participating network.

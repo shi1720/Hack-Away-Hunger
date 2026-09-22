@@ -1,0 +1,455 @@
+{
+  "product": "Pantry Relay",
+  "generated_at": "2026-09-22T05:49:30.199721+00:00",
+  "environment": "Chromium and WebKit: local integrated app on 127.0.0.1:8013, fresh disposable SQLite database per run. Firefox: Ubuntu GitHub Actions, fresh disposable database. No production food or personal data used.",
+  "coverage": {
+    "scenarios": 22,
+    "mobile_widths": [320, 390],
+    "desktop_width": 1440,
+    "automated_accessibility": "Axe WCAG 2A, WCAG 2AA, WCAG 2.1AA on landing and every workspace screen",
+    "default_retries": 0,
+    "total_passing_browser_test_executions": 66
+  },
+  "results": {
+    "chromium": {
+      "status": "passed",
+      "started_at": "2026-09-22T05:28:19.411Z",
+      "duration_ms": 17357,
+      "passed": 22,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "tests": [
+        {
+          "name": "cancel a committed relay, release stock and close the mistaken need",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "reject a complete cold shipment without inventing a temperature or received weight",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "an unsafe positive cold receipt stays blocked and can recover to a valid receipt",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "failed dispatch records the loss without a false arrival or restoring source stock",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "stale inventory does not overwrite a teammate and offers a reload recovery",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "a saved mutation followed by a failed refresh is not submitted twice",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "planner reservation remains clearly saved when its refresh fails",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "empty matching result explains constraints and recovers when the range is widened",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "expired session while downloading a report returns to authentication",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "mobile navigation traps focus, closes with Escape and leaves hidden links inert",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "all operational screens fit a 320px mobile viewport",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "all operational screens fit a 390px mobile viewport",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "inventory search and categories keep restricted stock clearly unshareable",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "print manifest includes actual locations, deadlines and the sample data notice",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "temporary API failure preserves form input and gives a readable retry message",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "signing out from the mobile drawer restores page scrolling and clears navigation",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "complete actual receipt workflow and reload persistence",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "real account onboarding, stock, need, and closing mistaken request",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "mobile layout and keyboard-accessible dialog",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "landing and all workspace screens meet automated WCAG A/AA checks",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "invited driver joins with separate credentials and sees transport actions only",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "expired authenticated session returns to sign-in instead of trapping workspace",
+          "passed": true,
+          "attempts": 1
+        }
+      ]
+    },
+    "webkit": {
+      "status": "passed",
+      "started_at": "2026-09-22T05:24:47.988Z",
+      "duration_ms": 23889,
+      "passed": 22,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "tests": [
+        {
+          "name": "cancel a committed relay, release stock and close the mistaken need",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "reject a complete cold shipment without inventing a temperature or received weight",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "an unsafe positive cold receipt stays blocked and can recover to a valid receipt",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "failed dispatch records the loss without a false arrival or restoring source stock",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "stale inventory does not overwrite a teammate and offers a reload recovery",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "a saved mutation followed by a failed refresh is not submitted twice",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "planner reservation remains clearly saved when its refresh fails",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "empty matching result explains constraints and recovers when the range is widened",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "expired session while downloading a report returns to authentication",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "mobile navigation traps focus, closes with Escape and leaves hidden links inert",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "all operational screens fit a 320px mobile viewport",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "all operational screens fit a 390px mobile viewport",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "inventory search and categories keep restricted stock clearly unshareable",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "print manifest includes actual locations, deadlines and the sample data notice",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "temporary API failure preserves form input and gives a readable retry message",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "signing out from the mobile drawer restores page scrolling and clears navigation",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "complete actual receipt workflow and reload persistence",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "real account onboarding, stock, need, and closing mistaken request",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "mobile layout and keyboard-accessible dialog",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "landing and all workspace screens meet automated WCAG A/AA checks",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "invited driver joins with separate credentials and sees transport actions only",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "expired authenticated session returns to sign-in instead of trapping workspace",
+          "passed": true,
+          "attempts": 1
+        }
+      ]
+    },
+    "firefox": {
+      "status": "passed",
+      "environment": "Ubuntu GitHub Actions",
+      "passed": 22,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "duration_ms": 49400,
+      "ci_run_id": 35690841301,
+      "ci_job_id": 106627310568,
+      "commit": "f067566883a232860cda2e192d1e690a03aa166d",
+      "evidence": "https://github.com/shi1720/Hack-Away-Hunger/actions/runs/35690841301/job/106627310568",
+      "local_host_note": "Local macOS 27 Firefox launch was blocked before app loading; equivalent full test suite passed on Linux CI.",
+      "upstream_reference": "https://bugzilla.mozilla.org/show_bug.cgi?id=2062988"
+    }
+  },
+  "sidebar_regression": {
+    "scope": "Supplemental validation after the original 22-scenario cross-browser baseline. The complete suite now contains 24 tests; historical Firefox evidence remains 22 tests.",
+    "problem": "The fixed desktop sidebar lacked an independent scroll container. At short viewport heights, its sign-out control could sit below the viewport and could not be brought into view.",
+    "fix": "Enable vertical sidebar scrolling with contained overscroll. Hide the decorative purpose card and reduce footer padding on desktop viewports no taller than 850 px.",
+    "viewport_cases": [
+      {
+        "width": 1600,
+        "height": 800
+      },
+      {
+        "width": 1280,
+        "height": 600
+      }
+    ],
+    "regression_evidence": "The 1600x800 case failed before the CSS change because sign-out remained outside the viewport. Both cases passed after the change, following receipt, pantry table scrolling, received inventory scrolling, impact report navigation and sign-out.",
+    "deployed_url": "https://pantryrelay.web.app",
+    "deployed_css_asset": "index-lNWa-LnA.css",
+    "local_chromium_full_suite": {
+      "status": "passed",
+      "passed": 24,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "duration_ms": 20100,
+      "evidence": "Local Playwright terminal output; duration rounded to reported 20.1 seconds."
+    },
+    "hosted_chromium_full_suite": {
+      "status": "passed",
+      "started_at": "2026-09-22T05:46:12.582Z",
+      "duration_ms": 164113,
+      "passed": 24,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "tests": [
+        {
+          "name": "cancel a committed relay, release stock and close the mistaken need",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "reject a complete cold shipment without inventing a temperature or received weight",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "an unsafe positive cold receipt stays blocked and can recover to a valid receipt",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "failed dispatch records the loss without a false arrival or restoring source stock",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "stale inventory does not overwrite a teammate and offers a reload recovery",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "a saved mutation followed by a failed refresh is not submitted twice",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "planner reservation remains clearly saved when its refresh fails",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "empty matching result explains constraints and recovers when the range is widened",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "expired session while downloading a report returns to authentication",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "mobile navigation traps focus, closes with Escape and leaves hidden links inert",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "all operational screens fit a 320px mobile viewport",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "all operational screens fit a 390px mobile viewport",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "inventory search and categories keep restricted stock clearly unshareable",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "print manifest includes actual locations, deadlines and the sample data notice",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "temporary API failure preserves form input and gives a readable retry message",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "signing out from the mobile drawer restores page scrolling and clears navigation",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "desktop sidebar remains reachable after recording scroll sequence at 1600x800",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "desktop sidebar remains reachable after recording scroll sequence at 1280x600",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "complete actual receipt workflow and reload persistence",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "real account onboarding, stock, need, and closing mistaken request",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "mobile layout and keyboard-accessible dialog",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "landing and all workspace screens meet automated WCAG A/AA checks",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "invited driver joins with separate credentials and sees transport actions only",
+          "passed": true,
+          "attempts": 1
+        },
+        {
+          "name": "expired authenticated session returns to sign-in instead of trapping workspace",
+          "passed": true,
+          "attempts": 1
+        }
+      ]
+    },
+    "local_webkit_added_cases": {
+      "status": "passed",
+      "started_at": "2026-09-22T05:46:58.587Z",
+      "duration_ms": 2966,
+      "passed": 2,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0
+    },
+    "hosted_webkit_added_cases": {
+      "status": "passed",
+      "started_at": "2026-09-22T05:44:39.800Z",
+      "duration_ms": 20170,
+      "passed": 2,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "evidence": "artifacts/verification/hosted-webkit-short-desktop.json"
+    },
+    "local_environment_note": "An initial supplemental WebKit run reused the preceding Chromium database and hit the default 30-attempt demo sign-in quota before its second test. Both new cases passed on a fresh database; no application or security limits were changed.",
+    "static_checks": [
+      "TypeScript typecheck passed",
+      "Prettier check passed on modified CSS and test source",
+      "git diff --check passed for modified source"
+    ]
+  }
+}
