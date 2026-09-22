@@ -1,0 +1,13 @@
+{
+  "name": "pantry-relay-browser-tests",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "playwright test",
+    "screenshots": "node capture.mjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.56.0",
+    "@axe-core/playwright": "^4.10.2"
+  }
+}

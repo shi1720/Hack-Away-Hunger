@@ -1,0 +1,19 @@
+services:
+  pantry-relay:
+    build: .
+    ports:
+      - "127.0.0.1:8010:8000"
+    environment:
+      PANTRY_ENV: development
+      PANTRY_DATABASE: /app/data/pantry-relay.sqlite3
+      PANTRY_DEMO_ENABLED: "true"
+      PANTRY_COOKIE_SECURE: "false"
+    volumes:
+      - pantry-data:/app/data
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+volumes:
+  pantry-data:
